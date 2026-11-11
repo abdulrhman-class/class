@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>فصلنا – نون</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#F8F1E7;--card:#FFFDF9;--ink:#3A2217;--mut:#7A6558;--pri:#B65C3C;--mint:#6FC7A6;--yel:#FFC043;--line:#E8DACA;--logo:#181412;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#26170F;--card:#38241A;--ink:#F6ECDF;--mut:#C9B4A2;--pri:#CF6E49;--line:#573A2A;--logo:#F6ECDF}}
+:root[data-theme="dark"]{--bg:#26170F;--card:#38241A;--ink:#F6ECDF;--mut:#C9B4A2;--pri:#CF6E49;--line:#573A2A;--logo:#F6ECDF}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 Cairo,Tahoma,system-ui,sans-serif;padding-bottom:84px}
+.w{max-width:720px;margin:auto;padding:12px}
+header{display:flex;justify-content:space-between;align-items:center}
+.logo{height:38px;width:auto;color:var(--logo);direction:ltr}
+.seg{display:flex;background:var(--line);border-radius:99px;padding:3px}
+.seg button{border:0;background:none;padding:3px 14px;border-radius:99px;font:inherit;color:var(--ink)}
+.seg .on{background:var(--pri);color:#fff}
+.bar{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;box-sizing:border-box;border:0;text-align:right;font:inherit;cursor:pointer;background:var(--yel);color:#3A2217;border-radius:14px;padding:8px 12px;margin:10px 0;font-weight:600}
+.bar small{font-weight:400;white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px;margin:10px 0}
+.card h3{margin:0 0 6px;font-size:16px}
+.hero{background:var(--pri);color:#fff;border-radius:24px;padding:18px;margin:10px 0}
+.hero b{font-size:44px;line-height:1.1;display:block}
+.pg{height:8px;border-radius:9px;background:rgba(255,255,255,.3);margin-top:8px}.pg i{display:block;height:100%;border-radius:9px;background:#fff}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.st{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:10px;text-align:center;font-size:12px}
+.st b{display:block;font-size:24px;color:var(--pri)}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:8px;margin:3px 0;width:100%;box-sizing:border-box}
+.btn{background:var(--pri);color:#fff;border:0;border-radius:12px;padding:9px 16px;font:inherit;font-weight:600;margin-top:4px}
+.tb{border:1px solid var(--line);background:none;border-radius:8px;font:inherit;font-size:12px;padding:2px 8px;color:var(--ink)}
+.chip{display:inline-block;border-radius:99px;padding:0 10px;font-size:12px;font-weight:600;background:var(--line);color:var(--ink)}
+.ok{background:var(--mint);color:#0F3326}.warn{background:var(--yel);color:#3A2217}.bad{background:#E57A6A;color:#3A0F08}
+.row{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border:0}.me{background:var(--line);border-radius:10px;padding-inline:8px}
+.xb{flex:1;display:flex;justify-content:space-between;gap:8px;background:none;border:0;padding:0;font:inherit;color:inherit;text-align:right;cursor:pointer}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px))}
+nav button{flex:1;border:0;background:none;font:inherit;font-size:11px;color:var(--mut);line-height:1.3}
+nav .on{color:var(--pri);font-weight:800}nav span{display:block;font-size:20px}
+.bd{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.b{border:1px solid var(--line);border-radius:14px;padding:8px;font-size:12px}.b.lock{opacity:.4}.b big{font-size:24px}
+.ov{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:13px}
+td,th{padding:6px;border-bottom:1px solid var(--line);text-align:center;white-space:nowrap}
+td:first-child,th:first-child{text-align:right}
+details{border-bottom:1px solid var(--line);padding:8px 0}summary{font-weight:600;cursor:pointer}
+#toast{position:fixed;top:calc(12px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:8px 18px;border-radius:99px;opacity:0;transition:opacity .25s;pointer-events:none;z-index:12;max-width:90vw;text-align:center}
+.note{font-size:12px;color:var(--mut)}
+.h0{background:var(--line);color:var(--mut)}.h1{background:var(--yel);color:#3A2217}.h2{background:var(--mint);color:#0F3326}
+.hm{display:grid;grid-template-columns:repeat(7,1fr);gap:5px;text-align:center;margin:8px 0}
+.hd{font-size:11px;color:var(--mut)}
+.hc{display:block;border-radius:10px;padding:5px 0;font-size:12px;line-height:1.35;border:1px solid transparent}
+.hc i{display:block;font-style:normal;font-size:13px}
+.hoff{border:1px dashed var(--line);color:var(--mut);opacity:.6}.hfut{border:1px solid var(--line);color:var(--mut);opacity:.5}
+.wk .hc{padding:12px 0;font-size:14px}
+.lg{display:flex;gap:6px;flex-wrap:wrap}
+.rp{padding:8px 10px;border-radius:12px;margin:6px 0;font-weight:600;font-size:14px}
+.md{position:fixed;inset:0;background:rgba(0,0,0,.45);display:flex;align-items:flex-end;justify-content:center;z-index:10}
+.md[hidden]{display:none}
+.sheet{background:var(--bg);width:100%;max-width:720px;max-height:82vh;overflow:auto;border-radius:22px 22px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px));box-sizing:border-box}
+.sheet h3{margin:0 0 8px;font-size:17px}.sheet h4{margin:0 0 4px;font-size:15px}
+.x{float:left;border:0;background:var(--line);color:var(--ink);border-radius:99px;width:32px;height:32px;font:inherit}
+.th{width:44px;height:44px;border-radius:8px;object-fit:cover;cursor:pointer;vertical-align:middle}
+.nm{display:inline-block;background:var(--line);border-radius:99px;padding:0 10px;margin:2px;font-size:13px}
+.nm.me{background:var(--mint);color:#0F3326;border-radius:99px;padding-inline:10px}
+.pv{font-weight:600;color:var(--pri);margin:2px 0}
+.ex{background:#BFD8F0;color:#12324F}
+.er{flex:1 1 100%}
+.cert{background:#FFFDF9;color:#3A2217;border:3px solid #B65C3C;outline:1px solid #B65C3C;outline-offset:-9px;border-radius:14px;padding:24px 14px;text-align:center}
+.cert .cav{font-size:52px;background:#F4E8DA;width:84px;height:84px;border-radius:50%;margin:0 auto;line-height:84px}
+.cert .ct{font-size:22px;font-weight:800;color:#B65C3C;margin:8px 0}
+.cert .cs{font-size:13px;color:#7A6558;margin:4px 0}
+.cert .cn{font-size:30px;font-weight:800;margin:2px 0}
+.cert .cb{display:inline-block;background:#3A2217;color:#fff;border-radius:99px;padding:2px 16px;margin:8px 0}
+.cert .st{background:#F4E8DA;border:0;color:#3A2217}.cert .st b{color:#B65C3C}
+.cert .cf{font-size:12px;margin-top:12px;color:#7A6558}
+.tb.on{font-weight:800;border-color:transparent}
+button.nm{border:0;font:inherit;color:var(--ink);cursor:pointer}
+.nm.sel{background:var(--mint);color:#0F3326}
+.hn{margin:10px 0 2px;font-weight:600;font-size:14px}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--pri);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="w">
+<header>
+<svg class="logo" viewBox="0 0 192 64" role="img" aria-label="نون" fill="none" stroke="currentColor" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+<path d="M10 52V32A15 15 0 0 1 40 32V52"/>
+<circle cx="72" cy="34" r="22" fill="#6FC7A6" stroke="none"/>
+<path d="M62 36Q70 46 82 35" stroke="#181412" stroke-width="3.6"/>
+<circle cx="118" cy="34" r="16"/>
+<path d="M150 52V32A15 15 0 0 1 180 32V52"/>
+</svg>
+<div class="seg" id="rsw" style="display:none"><button id="rs" onclick="setRole('s')">طالب</button><button id="rt" onclick="setRole('t')">معلم</button></div><div id="hb" style="display:none"><button class="tb" onclick="refresh()" aria-label="تحديث">🔄</button> <button class="tb" onclick="logout()">خروج</button> <span class="note" id="sv"></span></div>
+</header>
+<div class="note" id="cls"></div>
+<button class="bar" id="bar" onclick="openRem()"></button>
+<main id="app"></main>
+<p class="note" id="demonote">نسخة تجريبية بأسماء وبيانات وهمية – التغييرات تُحفظ أثناء فتح الصفحة فقط.</p>
+</div>
+<nav id="nav"></nav>
+<div class="md" id="md" hidden onclick="if(event.target===this)closeM()"><div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mt"><button class="x" id="mx" onclick="closeM()" aria-label="إغلاق">✕</button><h3 id="mt"></h3><div id="mb"></div></div></div>
+<div id="toast"></div>
+<script>
+const SES=['الحصة الأولى','الحصة الثانية','الحصة الثالثة','الحصة الرابعة'];
+const ST={p:['حاضر','ok'],l:['متأخر','warn'],a:['غائب','bad'],e:['بعذر','ex'],'':['لم يُسجل','']};
+const NM='فيصل,عبدالله,محمد,سعد,خالد,تركي,فهد,راكان,نواف,بندر,سلطان,ناصر,يزيد,عمر,ماجد,رائد,سامي,وليد,زياد'.split(',');
+/* التقويم التجريبي: 1 نوفمبر 2026 = الأحد، واليوم = 11 */
+const _nw=new Date(),TODAY=(_nw.getFullYear()==2026&&_nw.getMonth()==10)?_nw.getDate():(_nw>new Date(2026,10,30)?30:11),WK=[0,1,2,3,4,5,6].map(i=>TODAY-((TODAY-1)%7)+i).filter(d=>d<=30),DN=['أحد','اثنين','ثلاثاء','أربعاء','خميس','جمعة','سبت'],FD=['الأحد','الاثنين','الثلاثاء','الأربعاء','الخميس','الجمعة','السبت'];
+const isOff=d=>{const w=(d-1)%7;return w==5||w==6};
+const wkEl=()=>WK.filter(d=>!isOff(d)&&d<=TODAY);
+const moEl=()=>Array.from({length:TODAY},(_,i)=>i+1).filter(d=>!isOff(d));
+let sd=7;const R=()=>(sd=(sd*9301+49297)%233280)/233280;
+let SEQ=0;
+/* دفتر الأخطاء */
+const SK={'لفظي':['التناظر اللفظي','إكمال الجمل','الخطأ السياقي','المفردة الشاذة','استيعاب المقروء'],'كمي':['الحساب','الجبر','الهندسة','النسبة والتناسب','المقارنة','الإحصاء']};
+/* الاختبارات المحاكية */
+const OPTS=[[120,'اختبار كامل · 120 سؤال'],[110,'110 أسئلة'],[100,'100 سؤال'],[90,'90 سؤالًا'],[80,'80 سؤالًا'],[70,'70 سؤالًا'],[60,'نصف اختبار · 60 سؤالًا'],[50,'50 سؤالًا'],[40,'ثلث اختبار · 40 سؤالًا'],[30,'30 سؤالًا'],[25,'25 سؤالًا'],[20,'20 سؤالًا'],[0,'عدد آخر (اكتبه في الخانة التالية)']];
+const optH=()=>OPTS.map(o=>`<option value="${o[0]}">${o[1]}</option>`).join('');
+const mk=(t,c,l,d)=>({t,c,p:Math.round(c/t*100),l:l||'',ph:null,d:d||TODAY});
+const pc=s=>s.mocks.map(m=>m.p);
+/* الأنشطة المطلوبة */
+let ASG=[{id:1,t:'تمارين التناظر اللفظي'},{id:2,t:'تمارين الهندسة'},{id:3,t:'ملخص درس الاستيعاب'},{id:4,t:'تمارين النسبة والتناسب'}],NEXT=5;
+/* قواعد النقاط */
+const AUTO=[['نشاط مقبول',10],['كل نشاط إضافي في نفس اليوم',5],['نشاط مقبول في كل يوم دراسي من الأسبوع',15],['مذاكرة القدرات في اليوم',5],['تسجيل اختبار محاكي',10],['تحسن درجة المحاكي عن الاختبار السابق',10],['حضور يوم كامل بدون تأخير (بعد اعتماد حصصه الأربع)',5]];
+const MAN=[['تفاعل ممتاز',5],['نتيجة كويز',10],['تحسن ملحوظ',15],['مشاركة مميزة',5],['حضور أسبوع كامل',20],['حل جميع أنشطة الأسبوع',20]];
+const PRZ=[['فارس الأسبوع',20],['فارس الفصل',50]];
+
+const S=NM.map(n=>{const heat={},at={};moEl().forEach(d=>{const r=R();heat[d]=r<.2?0:r<.65?1:2;at[d]=[0,1,2,3].map(()=>R()<.9?'p':R()<.6?'l':'a')});
+ const pr=Array.from({length:Math.floor(R()*6)},()=>({d:moEl()[Math.floor(R()*moEl().length)],j:Math.floor(R()*4)}));
+ const err=Array.from({length:Math.floor(R()*5)},()=>{const g=R()<.5?'لفظي':'كمي',a=SK[g];return{g,sk:a[Math.floor(R()*a.length)],n:'',ph:null,d:moEl()[Math.floor(R()*moEl().length)]}});
+ const off=R()<.5?[{d:'2026-09-14',sc:Math.round(60+R()*25),ph:null,st:'ok'}]:[];
+ return{n,pts:Math.round(100+R()*2500),pen:{},exr:{},err,off,at,pr,streak:Math.floor(R()*8),
+ mocks:Array.from({length:1+Math.floor(R()*4)},(_,k)=>{const t=[30,60,120,40][Math.floor(R()*4)],p=55+k*5+R()*20;return mk(t,Math.round(p/100*t),'',moEl()[k*2])}),log:[],heat,pl:[]}});
+Object.assign(S[0],{pts:1480,streak:6});moEl().forEach(d=>S[0].at[d]=['p','p','p','p']);S[0].at[TODAY]=['p','p','l','p'];
+S[0].heat={1:2,2:1,3:2,4:1,5:2,8:2,9:0,10:0,11:1};
+S[0].pr=[{d:8,j:0},{d:9,j:1},{d:10,j:0}];
+S[0].mocks=[mk(120,74,'التناظر اللفظي',1),mk(60,41,'النسبة والتناسب',3),mk(60,44,'الهندسة',5),mk(120,95,'اختبار شامل',8)];
+S[0].log=[{l:'التناظر اللفظي',s:'لفظي',m:45},{l:'النسبة والتناسب',s:'كمي',m:60}];
+S[0].off=[{d:'2026-09-14',sc:72,ph:null,st:'ok'}];
+S[0].err=[{g:'لفظي',sk:'التناظر اللفظي',n:'خلطت بين علاقة الجزء بالكل',ph:null,d:8},{g:'كمي',sk:'الهندسة',n:'',ph:null,d:9}];
+S[3].at[9][0]='e';S[3].exr={'9-0':'موعد طبي'};
+S[2].off=[{d:'2026-09-14',sc:70,ph:null,st:'ok'},{d:'2026-11-10',sc:81,ph:null,st:'p'}];
+[['نشاط مقبول: ملخص درس الاستيعاب',10,10],['مذاكرة القدرات في اليوم',5,10],['تسجيل اختبار محاكي',10,8],['تحسن درجة المحاكي عن الاختبار السابق',10,8]].forEach(x=>S[0].pl.push({t:x[0],p:x[1],d:x[2],q:++SEQ}));
+/* أنشطة مقبولة عشوائية، وبعض الطلاب أنجزوا الكل */
+let A=[];
+S.forEach((s,i)=>ASG.forEach(g=>{if(R()<.6||[4,9,12].includes(i))A.push({s:i,a:g.id,t:g.t,st:'ok',d:moEl()[Math.floor(R()*moEl().length)]})}));
+A=A.filter(x=>!(x.s==0&&x.a==4)&&!(x.s==3&&x.a==1)&&!(x.s==7&&x.a==2));
+A=A.filter(x=>x.s!=0||[1,2,3].includes(x.a));
+[1,2,3].forEach(a=>{if(!A.some(x=>x.s==0&&x.a==a))A.push({s:0,a,t:ASG[a-1].t,st:'ok',d:moEl()[a]})});
+A.push({s:0,a:4,t:ASG[3].t,st:'p',d:TODAY},{s:3,a:1,t:ASG[0].t,st:'p',d:TODAY},{s:7,a:2,t:ASG[1].t,st:'p',d:TODAY});
+
+let EX=[
+{d:'الخميس 12 نوفمبر',s:'اختبار محاكي القدرات',r:'اختبار كامل (120 سؤال)',tip:'نم مبكرًا الليلة، وجهّز ورقة وقلمًا، وحاول تنهي الاختبار في جلسة واحدة بدون توقف.'},
+{d:'الأحد 15 نوفمبر',s:'القدرات',r:'الدروس 1 إلى 5',tip:'ابدأ بالدروس التي أخطأت فيها في المحاكي الأخير، ثم حل تمارين جديدة.'},
+{d:'الاثنين 16 نوفمبر',s:'اللغة الإنجليزية',r:'الوحدتان 3 و4',tip:'راجع المفردات أولًا ثم حل تمارين القواعد.'},
+{d:'الثلاثاء 17 نوفمبر',s:'التحصيل',r:'الفصل الثاني كاملًا',tip:'لخّص كل درس في خمسة أسطر، وحل أسئلة نهاية الفصل.'}];
+let rem='غدًا لديك اختبار محاكي القدرات · مطلوب منك نشاط اليوم';
+let CH={q:'ثمن 3 أقلام 12 ريالًا. كم ثمن 7 أقلام؟',o:['24 ريالًا','28 ريالًا','32 ريالًا','36 ريالًا'],ok:1,exp:'ثمن القلم الواحد 4 ريالات، و 4 × 7 = 28 ريالًا.',pts:5,ans:{}};
+S.forEach((s,i)=>{if(i&&R()<.5)CH.ans[i]=R()<.6?1:Math.floor(R()*4)});
+const ONLINE_ON=true;const COPY=false;const CLS=COPY?{c:'؟',t:'اكتب اسمك من الإعدادات'}:{c:'٢/١',t:'أ.عبدالرحمن الشريهي'};let DEMO=true;
+let role=COPY?'t':'s',tab='home',hm='w',armed='',admDay=TODAY,admSes=0,kw='w';const PS=new Set(),BON={},HOF=[],RWD={w:'شهادة فارس الأسبوع وهدية من المعلم',t:'الجائزة الكبرى لفارس الفصل'};moEl().forEach(d=>BON[d]=d<TODAY);let me=0;
+const $=s=>document.querySelector(s),V=id=>document.getElementById(id).value.trim();
+const esc=t=>String(t).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ranks=()=>[...S].sort((a,b)=>b.pts-a.pts);
+const sg=p=>'⁦'+(p>0?'+':p<0?'−':'')+Math.abs(p)+'⁩';
+const iso=d=>'2026-11-'+String(d).padStart(2,'0');
+const fmtD=s=>{try{return new Date(s+'T00:00:00').toLocaleDateString('ar-u-ca-gregory',{day:'numeric',month:'long',year:'numeric'})}catch(e){return s}};
+const okOff=s=>s.off.filter(x=>x.st=='ok').sort((a,b)=>a.d<b.d?-1:a.d>b.d?1:0);
+const PEN={l:5,a:10,on:true};let LVMAX=7000;
+const DED=()=>[['تأخر عن حصة',-PEN.l],['غياب عن حصة',-PEN.a],['عدم تسليم نشاط مطلوب',-5],['مخالفة سلوكية',-5]];
+const TIER=[['برونزي','🥉',[0,100,250]],['فضي','🥈',[450,700,1000]],['ذهبي','🥇',[1350,1750,2200]],['بلاتيني','💠',[2700,3250,3850]],['ماسي','💎',[4500,5200,6000]],['أسطوري','👑',[7000]]];
+const LV=()=>TIER.flatMap(t=>t[2].map((q,i)=>({n:t[0]+(t[2].length>1?' '+(i+1):''),e:t[1],p:Math.round(q*LVMAX/7000)})));
+const lvOf=pts=>{const L=LV();let k=0;L.forEach((x,i)=>{if(pts>=x.p)k=i});return{i:k,cur:L[k],next:L[k+1]||null,n:L.length}};
+function ladder(s){const o=lvOf(s.pts);return `<div class="card"><h3>🪜 رحلة المستويات حتى نهاية العام</h3><div class="hn">مستواك: ${o.cur.e} ${o.cur.n} (${o.i+1} من ${o.n})</div><details><summary>كل المستويات</summary>${LV().map((x,i)=>`<div class="row ${i==o.i?'me':''}"><span>${i<=o.i?'✅':'🔒'} ${x.e} ${x.n}</span><span>${x.p} نقطة</span></div>`).join('')}</details><button class="tb" onclick="openCert('lv',${S.indexOf(s)},-1)">🎖️ شهادة مستواي</button><p class="note">أعلى مستوى ${LV().at(-1).p} نقطة، والنقاط تتراكم على مدار العام الدراسي كله.</p></div>`}
+const chip=k=>`<span class="chip ${ST[k][1]}">${ST[k][0]}</span>`;
+const RC={};moEl().forEach(d=>RC[d]=[true,true,true,true]);RC[TODAY]=[true,true,false,false];
+const recs=(s,days)=>{let p=0,l=0,a=0,e=0;days.forEach(d=>(s.at[d]||[]).forEach((v,j)=>{if(RC[d]&&RC[d][j]){v=='p'?p++:v=='l'?l++:v=='e'?e++:a++}}));return{p,l,a,e,t:p+l+a}};
+S.forEach(s=>moEl().forEach(d=>[0,1,2,3].forEach(j=>{if(RC[d][j]){const v=s.at[d][j];s.pen[d+'-'+j]=v=='l'?-PEN.l:v=='a'?-PEN.a:0}})));
+const dayPct=s=>{const r=recs(s,[TODAY]);return r.t?Math.round((r.p+r.l)/r.t*100):0};
+const wkStudy=s=>wkEl().filter(d=>s.heat[d]>=1).length;
+const moStudy=s=>moEl().filter(d=>s.heat[d]>=1).length;
+const qs=s=>{const m=pc(s).slice(-2);return (m.length?m.reduce((a,b)=>a+b,0)/m.length*.7:0)+moStudy(s)/moEl().length*30};
+const qranks=()=>[...S].sort((a,b)=>qs(b)-qs(a));
+const qlevel=m=>m==null?'ابدأ بأول محاكي':m>=80?'متقدم':m>=65?'جيد':'يحتاج تركيز';
+const okc=i=>A.filter(x=>x.s==i&&x.st=='ok').length;
+const done=i=>ASG.length>0&&ASG.every(g=>A.some(x=>x.s==i&&x.a==g.id&&x.st=='ok'));
+const doneN=i=>ASG.filter(g=>A.some(x=>x.s==i&&x.a==g.id&&x.st=='ok')).length;
+const dayOK=(s,d)=>!!(RC[d]&&RC[d].some(x=>x))&&recs(s,[d]).a==0;
+const attWk=s=>wkEl().filter(d=>dayOK(s,d)).length;
+const BD=s=>[['🔥','مواظب','حضور 5 أيام متتالية',s.streak>=5],['✅','منجز','3 أنشطة مقبولة',okc(S.indexOf(s))>=3],['📚','مذاكر','مذاكرة كل الأيام الدراسية هذا الأسبوع',wkStudy(s)>=wkEl().length],['🏆','نجم المحاكي','درجة 80% أو أعلى في محاكي',Math.max(...pc(s))>=80]];
+function toast(m){const t=$('#toast');t.textContent=m;t.style.opacity=1;setTimeout(()=>t.style.opacity=0,2200)}
+function conf(k,fn){if(armed==k){armed='';fn()}else{armed=k;toast('اضغط مرة ثانية للتأكيد');setTimeout(()=>{if(armed==k)armed=''},3000)}}
+function addP(s,p,t){s.pts=Math.max(0,s.pts+p);s.pl.unshift({t,p,d:TODAY,q:++SEQ})}
+const photo=id=>{const f=document.getElementById(id).files;return f&&f[0]?URL.createObjectURL(f[0]):null};
+const thumb=(src,alt)=>src?`<img class="th" data-p="${esc(src)}" src="${PH[src]||(isRef(src)?src:BLANK)}" alt="${alt}" onclick="showImg(this.src)">`:'';
+function setRole(r){role=r;tab='home';render()}
+function setTab(t){tab=t;render();scrollTo(0,0)}
+function setHm(m){hm=m;render()}
+function lb(n){const r=ranks();return r.slice(0,n).map((s,i)=>`<div class="row ${role=='s'&&s==S[me]?'me':''}"><span>${['🥇','🥈','🥉'][i]||i+1+'.'} ${s.n} ${lvOf(s.pts).cur.e}</span><b>${s.pts} نقطة</b></div>`).join('')}
+function qlb(n){return qranks().slice(0,n).map((s,i)=>`<div class="row ${s==S[me]?'me':''}"><span>${['🥇','🥈','🥉'][i]||i+1+'.'} ${s.n}</span><b>${Math.round(qs(s))} / 100</b></div>`).join('')}
+const sopts=()=>S.map((x,i)=>`<option value="${i}">${x.n}</option>`).join('');
+const dopts=()=>moEl().slice().reverse().map(d=>`<option value="${d}">${FD[(d-1)%7]} ${d} نوفمبر</option>`).join('');
+const aopts=()=>ASG.map(g=>`<option value="${g.id}">${esc(g.t)}</option>`).join('');
+
+/* لوحة الشرف: معروضة للجميع */
+function nms(list){return list.length?list.map(s=>`<span class="nm ${role=='s'&&s==S[me]?'me':''}">${s.n}</span>`).join(''):'<span class="note">لا أحد بعد، كن أول واحد!</span>'}
+function honor(){
+ const el=wkEl().length,pct=Math.round(S.reduce((a,s)=>a+attWk(s),0)/(S.length*el)*100),s0=S[me];
+ const f=S.filter(s=>attWk(s)==el),ac=S.filter(s=>done(S.indexOf(s))),sy=S.filter(s=>wkStudy(s)==el);
+ const mine=role=='s'?(a,b)=>`<div class="note">${a?'✅ ':''}${b}</div>`:()=>'';
+ return `<div class="card"><h3>🏅 لوحة الشرف هذا الأسبوع</h3>
+ <div class="hn">نسبة حضور الفصل: ${pct}%</div><div class="pg" style="background:var(--line)"><i style="width:${pct}%;background:var(--mint)"></i></div>
+ <div class="hn">🗓️ حاضرون طوال الأسبوع (${f.length})</div>${nms(f)}${mine(attWk(s0)==el,attWk(s0)==el?'أنت حاضر طوال الأسبوع':`حضرت ${attWk(s0)} من ${el} أيام`)}
+ <div class="hn">✅ حلّوا جميع الأنشطة (${ac.length})</div>${nms(ac)}${mine(done(me),done(me)?'حليت كل أنشطة الأسبوع':`أنجزت ${doneN(me)} من ${ASG.length} أنشطة`)}
+ <div class="hn">📚 ذاكروا للقدرات كل الأيام (${sy.length})</div>${nms(sy)}${mine(wkStudy(s0)==el,wkStudy(s0)==el?'ذاكرت كل الأيام':`ذاكرت ${wkStudy(s0)} من ${el} أيام`)}</div>`}
+function rulesCard(){
+ const rw=r=>`<div class="row"><span>${r[0]}</span><b>${sg(r[1])}</b></div>`;
+ return `<div class="card"><h3>⭐ كيف تكسب النقاط؟</h3><div class="hn">تلقائيًا من الموقع</div>${AUTO.concat([['إجابة صحيحة في تحدي اليوم',CH.pts]]).map(rw).join('')}<div class="hn">يمنحها المعلم</div>${MAN.map(rw).join('')}<div class="hn">الخصم ${PEN.on?'(يُطبق تلقائيًا عند تسجيل التأخر أو الغياب)':'(يطبقه المعلم يدويًا)'}</div>${DED().map(rw).join('')}<div class="hn">جوائز التتويج</div>${PRZ.map(rw).join('')}</div>`}
+
+/* الخريطة الحرارية */
+const HG={0:['○','لم يذاكر'],1:['●','ذاكر فقط'],2:['★','ذاكر واختبر']};
+function cell(s,d){
+ if(d<1||d>30)return '<span></span>';
+ if(isOff(d))return `<span class="hc hoff" title="إجازة">${d}</span>`;
+ if(d>TODAY)return `<span class="hc hfut">${d}</span>`;
+ const v=s.heat[d]||0;return `<span class="hc h${v}" title="${d} نوفمبر: ${HG[v][1]}"><i>${HG[v][0]}</i>${d}</span>`}
+function heat(s){
+ const days=hm=='w'?WK:Array.from({length:35},(_,i)=>i+1);
+ return `<div class="hm ${hm=='w'?'wk':''}">${DN.map(x=>`<span class="hd">${x}</span>`).join('')}${days.map(d=>cell(s,d)).join('')}</div>
+ <div class="lg"><span class="chip h2">★ ذاكر واختبر</span><span class="chip h1">● ذاكر فقط</span><span class="chip h0">○ لم يذاكر</span></div>`}
+function report(s){
+ const el=wkEl(),st=wkStudy(s),miss=el.length-st,ts=el.filter(d=>s.heat[d]==2).length,m=pc(s),o=[];
+ o.push(miss==0?['ok','ممتاز! ما فاتك أي يوم مذاكرة هذا الأسبوع 🔥']:miss==1?['warn','فاتك يوم مذاكرة واحد هذا الأسبوع. عوّضه اليوم.']:['bad',`⚠️ عندك فجوة: عدد الأيام بدون مذاكرة هذا الأسبوع ${miss}. ارجع للمسار اليوم.`]);
+ o.push(ts==0?['warn','ما سجلت اختبار محاكي هذا الأسبوع. جرّب اختبارًا اليوم لتقيس مستواك.']:['ok',`عدد اختباراتك المحاكية هذا الأسبوع: ${ts}.`]);
+ if(m.length>1){const df=m.at(-1)-m.at(-2);o.push(df>0?['ok',`نسبتك الأخيرة ${m.at(-1)}%: تحسنت (+${df}) عن الاختبار السابق 👏`]:df<0?['warn',`نسبتك الأخيرة ${m.at(-1)}%: نزلت (${df}) عن الاختبار السابق. راجع الدروس التي أخطأت فيها.`]:['',`نسبتك ثابتة على ${m.at(-1)}%. جرّب رفعها اختبارًا بعد اختبار.`])}
+ return o}
+const mh=s=>[...s.mocks].reverse().map(m=>`<div class="row"><span><b>${m.c} من ${m.t}</b> = ${m.p}%${m.l?'<br><span class="note">'+esc(m.l)+'</span>':''}</span>${thumb(m.ph,'صورة نتيجة الاختبار')}</div>`).join('');
+const dLast=s=>{const m=s.mocks.at(-1);if(!m)return '—';return `${m.p}% <span class="note">(${m.c}/${m.t})</span>`};
+
+function home(){
+ const s=S[me],pos=ranks().indexOf(s)+1,lv=lvOf(s.pts),nx=lv.next;
+ if(role=='t'){const pend=A.filter(a=>a.st=='p').length,pct=Math.round(S.reduce((a,x)=>a+dayPct(x),0)/S.length),avg=Math.round(S.reduce((a,x)=>a+x.pts,0)/S.length);
+ const ops=S.flatMap(x=>x.pl.map(e=>({n:x.n,...e}))).sort((a,b)=>b.q-a.q).slice(0,8);
+ return `<div class="g3"><div class="st"><b>${pct}%</b>حضور اليوم</div><div class="st"><b>${pend}</b>أنشطة بانتظارك</div><div class="st"><b>${avg}</b>متوسط النقاط</div></div>
+ ${COPY&&DEMO?startCard():''}${riskCard()}
+ ${honor()}
+ ${pointsCard()}
+ <div class="card"><h3>🔔 شريط التذكير للطلاب</h3><input id="rm" value="${esc(rem)}" aria-label="نص التذكير"><button class="btn" onclick="setRem()">حفظ التذكير</button><p class="note">وتقدر تعدل تفاصيل الاختبارات من تبويب الاختبارات.</p></div>
+ <div class="card"><h3>آخر عمليات النقاط</h3>${ops.map(o=>`<div class="row"><span>${o.n}: ${esc(o.t)}</span><b>${sg(o.p)}</b></div>`).join('')}</div>
+ ${rulesCard()}
+ <div class="card"><h3>ترتيب الفصل</h3>${lb(S.length)}</div>`}
+ return `<div class="hero">أهلًا ${s.n}<b>${s.pts}</b>نقطة · ${lv.cur.e} ${lv.cur.n}<div class="pg"><i style="width:${nx?Math.round((s.pts-lv.cur.p)/(nx.p-lv.cur.p)*100):100}%"></i></div><div style="margin-top:6px;font-size:13px">ترتيبك في الفصل: ${pos} من ${S.length} · ${nx?`باقي ${nx.p-s.pts} نقطة لـ ${nx.e} ${nx.n}`:'وصلت لأعلى مستوى 👑'}</div></div>
+ ${chCard()}
+ ${ladder(s)}
+ ${honor()}
+ ${kcard()}
+ <div class="card"><h3>🎯 استعدادك للقدرات</h3>ترتيبك <b>${qranks().indexOf(s)+1}</b> من ${S.length} · آخر محاكي ${dLast(s)}<br><button class="btn" onclick="setTab('q')">افتح قسم القدرات</button></div>
+ <div class="card"><h3>أوسمتك</h3><div class="bd">${BD(s).map(b=>`<div class="b ${b[3]?'':'lock'}"><big>${b[0]}</big><br><b>${b[1]}</b><br>${b[2]}</div>`).join('')}</div></div>
+ <div class="card"><h3>🧾 سجل نقاطك</h3>${s.pl.slice(0,6).map(o=>`<div class="row"><span>${esc(o.t)}<br><span class="note">${o.d} نوفمبر</span></span><b>${sg(o.p)}</b></div>`).join('')||'لا توجد نقاط بعد.'}</div>
+ ${rulesCard()}
+ ${DEMO?`<div class="card"><h3>🏫 ترتيب فصلنا بين فصول نون</h3>المركز <b>3</b> من 12 فصلًا <span class="note">(بيانات تجريبية)</span></div>`:''}
+ <div class="card"><h3>لوحة الصدارة</h3>${lb(5)}</div>`}
+const sRate=(s,j)=>{let p=0,l=0,a=0;moEl().forEach(d=>{if(RC[d][j]){const v=s.at[d][j];v=='e'?0:v=='p'?p++:v=='l'?l++:a++}});const t=p+l+a;return{p,l,a,pct:t?Math.round((p+l)/t*100):0}};
+const cnt=(j,days)=>{let p=0,l=0,a=0;S.forEach(s=>days.forEach(d=>{if(RC[d]&&RC[d][j]){const v=s.at[d][j];v=='e'?0:v=='p'?p++:v=='l'?l++:a++}}));const t=p+l+a;return{p,l,a,pct:t?Math.round((p+l)/t*100):0}};
+function pointsCard(){return `<div class="card"><h3>🎁 منح أو خصم نقاط</h3><select id="aw" aria-label="الطالب">${sopts()}</select><select id="ar" aria-label="السبب">${MAN.concat(DED()).map((r,i)=>`<option value="${i}">${r[0]} (${sg(r[1])})</option>`).join('')}<option value="c">سبب مخصص (اكتبه بالأسفل)</option></select><input id="cr" placeholder="السبب المخصص (للخيار المخصص فقط)"><input id="cp" type="number" placeholder="النقاط المخصصة، تقبل السالب مثل -5"><button class="btn" onclick="award()">تطبيق</button></div>`}
+function dstat(d){
+ const rc=RC[d]||[false,false,false,false],ses=SES.map((x,j)=>{if(!rc[j])return{x,rec:false};const L=[],Ab=[],E=[];S.forEach(s=>{const v=s.at[d][j];if(v=='l')L.push(s.n);if(v=='a')Ab.push(s.n);if(v=='e')E.push(s.n+(s.exr[d+'-'+j]?` (${s.exr[d+'-'+j]})`:''))});const den=S.length-E.length;return{x,rec:true,L,Ab,E,pct:den?Math.round((den-Ab.length)/den*100):100}});
+ const rec=ses.filter(x=>x.rec),late=rec.reduce((a,x)=>a+x.L.length,0),abs=rec.reduce((a,x)=>a+x.Ab.length,0);
+ const pct=rec.length?Math.round(rec.reduce((a,x)=>a+x.pct,0)/rec.length):0;
+ const acc=A.filter(x=>x.d==d&&x.st=='ok'),pend=A.filter(x=>x.d==d&&x.st=='p'),accN=new Set(acc.map(x=>x.s)).size;
+ const ml=S.flatMap(s=>s.mocks.filter(m=>m.d==d).map(m=>({n:s.n,m}))),pr=S.flatMap(s=>s.pr.filter(x=>x.d==d).map(x=>({n:s.n,j:x.j})));
+ const st=S.filter(s=>s.heat[d]>=1),pt=S.flatMap(s=>s.pl.filter(e=>e.d==d).map(e=>({n:s.n,...e})));
+ return{rc:rec.length>0,ses,late,abs,pct,acc,pend,accN,ml,pr,st,pt}}
+function dayHtml(d){const o=dstat(d),N=S.length,pc2=n=>Math.round(n/N*100);
+ const dt=(sum,body)=>`<details><summary>${sum}</summary>${body||'<span class="note">لا يوجد.</span>'}</details>`;
+ const mavg=o.ml.length?Math.round(o.ml.reduce((a,x)=>a+x.m.p,0)/o.ml.length):0;
+ return `<div class="g3"><div class="st"><b>${o.rc?o.pct+'%':'—'}</b>نسبة الحضور</div><div class="st"><b>${o.late}</b>تأخر</div><div class="st"><b>${o.abs}</b>غياب</div></div>
+ <div class="hn">الحضور حسب الحصة</div>${o.ses.map(x=>x.rec?dt(`${x.x} · حضور ${x.pct}% · تأخر ${x.L.length} · غياب ${x.Ab.length}${x.E.length?` · بعذر ${x.E.length}`:''}`,((x.L.length?`<b>المتأخرون:</b> ${x.L.join('، ')}<br>`:'')+(x.Ab.length?`<b>الغائبون:</b> ${x.Ab.join('، ')}<br>`:'')+(x.E.length?`<b>غياب بعذر:</b> ${x.E.join('، ')}`:''))||'الجميع حاضر في الوقت ✅'):`<div class="row"><span>${x.x}</span><span class="chip">لم تُسجل</span></div>`).join('')}
+ <div class="hn">الأنشطة</div>${dt(`حلّوا أنشطتهم: ${o.accN} من ${N} (${pc2(o.accN)}%) · بانتظار المراجعة: ${o.pend.length}`,o.acc.map(x=>`${S[x.s].n}: ${esc(x.t)}`).join('<br>'))}
+ <div class="hn">القدرات</div>${dt(`ذاكروا: ${o.st.length} من ${N} (${pc2(o.st.length)}%) · محاكي: ${o.ml.length}${o.ml.length?' · المتوسط '+mavg+'%':''}`,'<b>المحاكي:</b><br>'+(o.ml.map(x=>`${x.n}: ${x.m.c} من ${x.m.t} = ${x.m.p}%`).join('<br>')||'لا يوجد')+'<br><b>لم يذاكروا:</b> '+(S.filter(s=>!(s.heat[d]>=1)).map(s=>s.n).join('، ')||'لا أحد'))}
+ <div class="hn">التفاعل</div>${dt(`تفاعل ${new Set(o.pr.map(x=>x.n)).size} طلاب · ${o.pr.length} مشاركة`,o.pr.map(x=>`${x.n}: ${SES[x.j]}`).join('<br>'))}
+ <div class="hn">النقاط</div>${dt(`مضافة ${sg(o.pt.filter(x=>x.p>0).reduce((a,x)=>a+x.p,0))} · مخصومة ${sg(o.pt.filter(x=>x.p<0).reduce((a,x)=>a+x.p,0))}`,o.pt.map(x=>`${x.n}: ${esc(x.t)} (${sg(x.p)})`).join('<br>'))}`}
+function openDay(d){showM(`ملخص ${FD[(d-1)%7]} ${d} نوفمبر`,dayHtml(d))}
+function todayCard(){const o=dstat(TODAY);return `<div class="card"><h3>📊 ملخص اليوم</h3><div class="g3"><div class="st"><b>${o.rc?o.pct+'%':'—'}</b>نسبة الحضور</div><div class="st"><b>${o.late}</b>تأخر</div><div class="st"><b>${o.abs}</b>غياب</div></div><p class="note">أنشطة: ${o.accN} طالب حلّوا أنشطتهم · محاكي: ${o.ml.length} · تفاعل: ${o.pr.length} مشاركة · الحصص المعتمدة: ${RC[TODAY].filter(x=>x).length} من 4 · تحدي اليوم: ${Object.keys(CH.ans).length} أجابوا</p><button class="btn" onclick="openDay(${TODAY})">عرض التفاصيل</button></div>`}
+function rateCard(){return `<div class="card"><h3>📈 نسبة الحضور لكل حصة</h3><div class="ov"><table><tr><th>الحصة</th><th>الأسبوع</th><th>الشهر</th><th>تأخر</th><th>غياب</th></tr>${SES.map((x,j)=>{const w=cnt(j,wkEl()),m=cnt(j,moEl());return `<tr><td>${x}</td><td>${w.pct}%</td><td>${m.pct}%</td><td>${m.l}</td><td>${m.a}</td></tr>`}).join('')}</table></div><p class="note">التأخر والغياب لهذا الشهر. التأخر يُحسب حضورًا، والغياب بعذر لا يدخل في النسبة.</p></div>`}
+function dailyCard(){return `<div class="card"><h3>📒 السجل اليومي</h3><p class="note">اضغط على أي يوم لتشوف ملخصه بالتفاصيل.</p>${moEl().slice().reverse().map(d=>{const o=dstat(d);return `<div class="row"><button class="xb" onclick="openDay(${d})"><span><b>${FD[(d-1)%7]} ${d} نوفمبر</b></span><span class="note">حضور ${o.rc?o.pct+'%':'—'} · تأخر ${o.late} · غياب ${o.abs} · أنشطة ${o.accN} · محاكي ${o.ml.length} ‹</span></button></div>`}).join('')}</div>`}
+function att(){
+ const s=S[me],r=recs(s,[TODAY]),w=recs(s,wkEl());
+ const cl=(d,j)=>RC[d]&&RC[d][j]?chip(s.at[d][j]):'<span class="chip">—</span>';
+ return `<div class="hero">حضورك اليوم<b>${r.t?dayPct(s)+'%':'—'}</b>مواظب منذ ${s.streak} أيام متتالية</div>
+ <div class="card"><h3>حصص نون اليوم</h3>${SES.map((x,j)=>`<div class="row"><span>${x}</span>${cl(TODAY,j)}</div>`).join('')}<p class="note">الحصة التي لم يسجلها المعلم بعد تظهر بشرطة.</p></div>
+ <div class="g3"><div class="st"><b>${w.p}</b>حاضر هذا الأسبوع</div><div class="st"><b>${w.l}</b>متأخر</div><div class="st"><b>${w.a}</b>غائب</div></div>
+ <div class="card"><h3>حضورك هذا الأسبوع</h3><div class="ov"><table><tr><th>اليوم</th>${SES.map(x=>`<th>${x}</th>`).join('')}</tr>${wkEl().map(d=>`<tr><td>${FD[(d-1)%7]}</td>${[0,1,2,3].map(j=>`<td>${cl(d,j)}</td>`).join('')}</tr>`).join('')}</table></div></div>
+ <div class="card"><h3>حضورك حسب الحصة (هذا الشهر)</h3>${SES.map((x,j)=>{const r=sRate(s,j);return `<div class="row"><span>${x}</span><span class="note">تأخر ${r.l} · غياب ${r.a}</span><b>${r.pct}%</b></div>`}).join('')}</div>
+ <div class="card"><h3>الوسام القادم</h3>${s.streak>=5?'حصلت على وسام المواظب 🔥':`احضر ${5-s.streak} أيام إضافية متتالية لتحصل على وسام المواظب`}</div>`}
+/* لوحة الإدارة */
+const arIn=i=>{const v=S[i].at[admDay][admSes];return `<span>${S[i].n}</span><span>${['p','l','a','e'].map(x=>`<button class="tb ${v==x?'on '+ST[x][1]:''}" aria-pressed="${v==x}" onclick="setAt(${i},'${x}')">${ST[x][0]}</button>`).join(' ')}</span>${v=='e'?`<input class="er" placeholder="سبب العذر (اختياري)" aria-label="سبب العذر" value="${esc(S[i].exr[admDay+'-'+admSes]||'')}" oninput="setEx(${i},this.value)">`:''}`};
+function setEx(i,v){S[i].exr[admDay+'-'+admSes]=v}
+const asum=()=>{const c={p:0,l:0,a:0,e:0};S.forEach(s=>c[s.at[admDay][admSes]]++);return `حاضر ${c.p} · متأخر ${c.l} · غائب ${c.a}`+(c.e?` · بعذر ${c.e}`:'')};
+function setAt(i,v){S[i].at[admDay][admSes]=v;const e=$('#ar'+i);e.innerHTML=arIn(i);e.className='row'+(v=='p'?'':' me');$('#asum').textContent=asum()}
+function setAdm(k,v){if(k=='d')admDay=+v;else admSes=+v;render()}
+function allP(){S.forEach(s=>s.at[admDay][admSes]='p');render()}
+function penalty(s,d,j){const k=d+'-'+j,v=s.at[d][j],nw=PEN.on?(v=='l'?-PEN.l:v=='a'?-PEN.a:0):0,old=s.pen[k]||0,nm=FD[(d-1)%7]+' '+d+' نوفمبر';
+ if(nw==old)return 0;if(old)addP(s,-old,`إلغاء خصم سابق: ${SES[j]} (${nm})`);if(nw)addP(s,nw,`${v=='a'?'غياب':'تأخر'} في ${SES[j]} (${nm})`);s.pen[k]=nw;return nw?1:0}
+function apprAtt(){RC[admDay][admSes]=true;const n=S.filter(s=>penalty(s,admDay,admSes)).length;let m=`تم اعتماد ${SES[admSes]}`+(n?` وخُصمت نقاط من ${n} طلاب`:'');
+ if(RC[admDay].every(x=>x)&&!BON[admDay]){BON[admDay]=1;const g=S.filter(s=>s.at[admDay].every(x=>x=='p'));g.forEach(s=>addP(s,5,'حضور يوم كامل بدون تأخير'));m+=` و${sg(5)} لـ ${g.length} طلاب حضروا اليوم كاملًا`}
+ toast(m);render()}
+function tp(i){PS.has(i)?PS.delete(i):PS.add(i);const e=$('#pc'+i);e.className='nm pc'+(PS.has(i)?' sel':'');e.textContent=(PS.has(i)?'✓ ':'')+S[i].n;$('#pcnt').textContent='المحددون: '+PS.size}
+function givePart(){if(!PS.size)return toast('حدد الطلاب المتفاعلين أولًا');const p=+V('pp'),j=+V('ps'),n=PS.size;[...PS].forEach(i=>{addP(S[i],p,'تفاعل في حصة '+SES[j]);S[i].pr.push({d:TODAY,j})});PS.clear();toast(`${sg(p)} نقاط لـ ${n} طلاب`);render()}
+/* فارس الأسبوع والفصل */
+const KL=[['a','حضور',20],['p','عدم التأخير',10],['s','مذاكرة القدرات',25],['ac','الأنشطة',20],['pt','التفاعل',15],['m','المحاكي',10]];
+const kdays=m=>m=='w'?wkEl():moEl();
+function ks(s,days){const i=S.indexOf(s),r=recs(s,days),w=Math.max(1,Math.ceil(days.length/5)),o={};
+ o.a=r.t?(r.p+r.l)/r.t*20:0;o.p=r.t?r.p/r.t*10:0;o.s=days.length?days.filter(d=>s.heat[d]>=1).length/days.length*25:0;
+ o.ac=ASG.length?Math.min(1,A.filter(x=>x.s==i&&x.st=='ok'&&days.includes(x.d)).length/(ASG.length*w))*20:0;
+ o.pt=Math.min(1,s.pr.filter(x=>days.includes(x.d)).length/(4*w))*15;o.m=Math.min(1,s.mocks.filter(x=>days.includes(x.d)).length/w)*10;
+ KL.forEach(k=>o[k[0]]=Math.round(o[k[0]]));o.t=KL.reduce((a,k)=>a+o[k[0]],0);return o}
+const kr=m=>S.map(s=>({s,k:ks(s,kdays(m))})).sort((a,b)=>b.k.t-a.k.t);
+function setKw(m){kw=m;render()}
+function crown(){const w=kr(kw)[0].s,i=S.indexOf(w),k=kw;RWD[kw]=V('rw')||RWD[kw];HOF.unshift({k,n:w.n,i,r:RWD[kw],d:TODAY});addP(w,k=='w'?20:50,'فارس '+(k=='w'?'الأسبوع':'الفصل'));toast(`🏇 تم تتويج ${w.n}`);render();openCert(k,i,0)}
+function knight(){
+ const L=kr(kw),t=kw=='w'?'الأسبوع':'الفصل';
+ return `<div class="card"><h3>🏇 فارس ${t}</h3><div class="seg" style="width:max-content"><button class="${kw=='w'?'on':''}" onclick="setKw('w')">الأسبوع</button><button class="${kw=='t'?'on':''}" onclick="setKw('t')">الفصل (من بداية الشهر)</button></div>
+ <p class="note">المجموع من 100: ${KL.map(k=>k[1]+' '+k[2]).join(' · ')}.</p>
+ <div class="ov"><table><tr><th>الطالب</th>${KL.map(k=>`<th>${k[1]}</th>`).join('')}<th>المجموع</th></tr>${L.slice(0,10).map((x,i)=>`<tr><td>${i==0?'🏇 ':i+1+'. '}${x.s.n}</td>${KL.map(k=>`<td>${x.k[k[0]]}</td>`).join('')}<td><b>${x.k.t}</b></td></tr>`).join('')}</table></div>
+ <p class="note">الجدول يعرض أفضل 10 طلاب، ويُحسب تلقائيًا من الحضور والتأخير والمذاكرة والأنشطة والتفاعل والمحاكي.</p>
+ <input id="rw" value="${esc(RWD[kw])}" aria-label="الجائزة"><button class="btn" onclick="conf('crown${kw}',crown)">تتويج ${L[0].s.n} فارسًا (${sg(kw=='w'?20:50)} نقطة)</button>
+ ${HOF.map((x,j)=>`<div class="row"><span>🏇 فارس ${x.k=='w'?'الأسبوع':'الفصل'}: ${x.n}<br><span class="note">${esc(x.r)}</span></span><button class="tb" onclick="openCert('${x.k}',${x.i},${j})">🎖️ الشهادة</button></div>`).join('')}</div>`}
+function kcard(){const s=S[me],o=ks(s,wkEl()),L=kr('w'),rk=L.findIndex(x=>x.s==s)+1;
+ return `<div class="card"><h3>🏇 طريقك لفارس الأسبوع</h3><div class="hn">مجموعك ${o.t} من 100 · ترتيبك ${rk} من ${S.length}</div><div class="pg" style="background:var(--line)"><i style="width:${o.t}%;background:var(--pri)"></i></div>
+ ${KL.map(k=>`<div class="row"><span>${k[1]}</span><b>${o[k[0]]} / ${k[2]}</b></div>`).join('')}
+ <div class="hn">المتصدرون الآن</div>${L.slice(0,3).map((x,i)=>`<span class="nm ${x.s==s?'me':''}">${['🥇','🥈','🥉'][i]} ${x.s.n} (${x.k.t})</span>`).join('')}
+ <p class="note">الجائزة: ${esc(RWD.w)}</p>${HOF.length?'<div class="hn">فرسان سابقون</div>'+HOF.map((x,j)=>`<div class="note">🏇 فارس ${x.k=='w'?'الأسبوع':'الفصل'}: ${x.n} ${x.i==me?`<button class="tb" onclick="openCert('${x.k}',${x.i},${j})">🎖️ شهادتي</button>`:''}</div>`).join(''):''}</div>`}
+/* متابعة الطلاب */
+function risk(s){
+ const i=S.indexOf(s),days=moEl().filter(d=>RC[d]&&RC[d].some(x=>x)),last5=days.slice(-5),o=[];
+ const cn=v=>last5.reduce((a,d)=>a+(s.at[d]||[]).filter((x,j)=>RC[d][j]&&x==v).length,0);
+ if(cn('a')>=2)o.push(`غياب متكرر: ${cn('a')} حصص في آخر 5 أيام`);
+ if(cn('l')>=3)o.push(`تأخر متكرر: ${cn('l')} مرات`);
+ const l3=moEl().slice(-3);if(l3.length==3&&l3.every(d=>!(s.heat[d]>=1)))o.push('3 أيام بدون مذاكرة للقدرات');
+ const m=pc(s);if(m.length>1&&m.at(-2)-m.at(-1)>=5)o.push(`نزول في المحاكي (${sg(m.at(-1)-m.at(-2))})`);
+ if(wkEl().length>=3&&wkEl().length-wkStudy(s)>=3)o.push(`مذاكرة القدرات ضعيفة هذا الأسبوع (${wkStudy(s)} من ${wkEl().length} أيام)`);
+ if(ASG.length&&wkEl().length>=3&&doneN(i)==0)o.push('لم يسلم أي نشاط هذا الأسبوع');
+ return o}
+function riskCard(){const L=S.map(s=>({s,r:risk(s)})).filter(x=>x.r.length).sort((a,b)=>b.r.length-a.r.length);
+ return `<div class="card"><h3>⚠️ طلاب يحتاجون متابعة (${L.length})</h3>${L.map(x=>`<div class="row"><span><b>${x.s.n}</b><br><span class="note">${x.r.join(' · ')}</span></span><button class="tb" onclick="openRep(${S.indexOf(x.s)})">تقرير ولي الأمر</button></div>`).join('')||'لا يوجد طلاب بحاجة لمتابعة الآن 👏'}</div>`}
+/* تقرير ولي الأمر */
+function repText(i){const s=S[i],el=wkEl(),r=recs(s,el),lv=lvOf(s.pts),o=ks(s,el),m=s.mocks,rk=ranks().indexOf(s)+1,of=okOff(s),rr=risk(s);
+ const mt=m.length?`${m.at(-1).p}% (${m.at(-1).c} من ${m.at(-1).t})`:'لا يوجد';
+ return `السلام عليكم ورحمة الله وبركاته
+تقرير أسبوعي للطالب: ${s.n}
+فصل ${CLS.c} · المعلم المسؤول: ${CLS.t}
+الفترة: ${FD[(el[0]-1)%7]} ${el[0]} إلى ${FD[(el.at(-1)-1)%7]} ${el.at(-1)} نوفمبر
+
+📅 الحضور: حاضر ${r.p} · متأخر ${r.l} · غائب ${r.a}${r.e?` · بعذر ${r.e}`:''}
+✅ الأنشطة: أنجز ${doneN(i)} من ${ASG.length}
+📚 مذاكرة القدرات: ${wkStudy(s)} من ${el.length} أيام
+📝 آخر اختبار محاكي: ${mt}
+🎓 آخر نتيجة قدرات رسمية: ${of.length?of.at(-1).sc+' من 100':'لا توجد'}
+⭐ النقاط: ${s.pts} · المستوى: ${lv.cur.n} · الترتيب ${rk} من ${S.length}
+🏇 تقييم فارس الأسبوع: ${o.t} من 100
+`+(rr.length?`\n🔔 نحتاج منكم المتابعة في: ${rr.join('، ')}`:'\n🌟 لا توجد ملاحظات تستدعي القلق هذا الأسبوع، نشكر لكم دعمكم.')}
+function openRep(i){showM('تقرير ولي الأمر — '+S[i].n,`<textarea id="rpt" rows="14" readonly aria-label="نص التقرير">${esc(repText(i))}</textarea><button class="btn" onclick="copyRep()">نسخ التقرير</button><p class="note" id="cpm"></p>`)}
+function copyRep(){const t=$('#rpt'),m=$('#cpm');try{t.select&&t.select();navigator.clipboard.writeText(t.value).then(()=>toast('تم نسخ التقرير'),()=>{m.textContent='ما قدرت أنسخ تلقائيًا، حدد النص وانسخه يدويًا'})}catch(e){m.textContent='ما قدرت أنسخ تلقائيًا، حدد النص وانسخه يدويًا'}}
+function repCard(){return `<div class="card"><h3>📨 تقارير أولياء الأمور</h3><p class="note">اختر الطالب لتحصل على تقرير أسبوعي جاهز للنسخ والإرسال.</p>${S.map((s,i)=>`<button class="nm" onclick="openRep(${i})">${s.n}</button>`).join('')}</div>`}
+/* دفتر الأخطاء */
+const skOpts=()=>Object.entries(SK).map(([g,a])=>`<optgroup label="${g}">${a.map(x=>`<option value="${g}|${x}">${x}</option>`).join('')}</optgroup>`).join('');
+function errCard(s){const c={};s.err.forEach(e=>c[e.g+'|'+e.sk]=(c[e.g+'|'+e.sk]||0)+1);const top=Object.entries(c).sort((a,b)=>b[1]-a[1]);
+ return `<div class="card"><h3>📕 دفتر الأخطاء <span class="chip">اختياري</span></h3><p class="note">سجّل الأسئلة التي أخطأت فيها لتعرف نقطة ضعفك وترجع لها.</p><select id="eg" aria-label="المهارة">${skOpts()}</select><input id="en" placeholder="وصف السؤال أو سبب الخطأ (اختياري)"><label class="note">صورة السؤال (اختياري)</label><input type="file" id="ef" accept="image/*"><button class="btn" onclick="addErr()">حفظ في الدفتر</button>
+ ${top.length?`<div class="hn">أكثر نقاط ضعفك</div>${top.slice(0,4).map(([k,v])=>`<div class="row"><span>${k.split('|')[1]} <span class="note">(${k.split('|')[0]})</span></span><b>${v}</b></div>`).join('')}`:''}
+ ${s.err.slice(0,5).map(e=>`<div class="row"><span>${e.sk} · ${e.g}${e.n?'<br><span class="note">'+esc(e.n)+'</span>':''}</span>${thumb(e.ph,'صورة السؤال')}</div>`).join('')}</div>`}
+function errTeacher(){const c={};S.forEach(s=>s.err.forEach(e=>{const k=e.sk+' ('+e.g+')';c[k]=(c[k]||0)+1}));const top=Object.entries(c).sort((a,b)=>b[1]-a[1]);
+ const wk=s=>{const m={};s.err.forEach(e=>m[e.sk]=(m[e.sk]||0)+1);const t=Object.entries(m).sort((a,b)=>b[1]-a[1])[0];return t?`${t[0]} (${t[1]})`:'—'};
+ return `<div class="card"><h3>📕 نقاط ضعف الفصل (من دفتر الأخطاء)</h3>${top.slice(0,6).map(([k,v])=>`<div class="row"><span>${k}</span><b>${v}</b></div>`).join('')||'<p class="note">لا توجد أخطاء مسجلة بعد.</p>'}<div class="ov"><table><tr><th>الطالب</th><th>أخطاء مسجلة</th><th>أكثر نقطة ضعف</th></tr>${S.filter(s=>s.err.length).map(s=>`<tr><td>${s.n}</td><td>${s.err.length}</td><td>${wk(s)}</td></tr>`).join('')}</table></div></div>`}
+/* نتائج القدرات الرسمية */
+const OSTAT={p:['warn','بانتظار المراجعة'],ok:['ok','معتمدة'],no:['bad','مرفوضة']};
+function offCard(s){const ok=okOff(s),tr=ok.length>1?ok.at(-1).sc-ok.at(-2).sc:null;
+ return `<div class="card"><h3>🎓 نتائج اختبار القدرات الرسمي</h3><p class="note">سجّل درجتك في اختبار القدرات الرسمي مع صورة النتيجة، وبعد اعتماد المعلم تقارن تطورك.</p>
+ ${tr!==null?`<div class="rp ${tr>0?'ok':tr<0?'warn':''}">درجتك السابقة ${ok.at(-2).sc} والأخيرة ${ok.at(-1).sc}: ${tr>0?'تحسنت':tr<0?'نزلت':'ثابتة'} (${sg(tr)})</div>`:ok.length?`<div class="rp">درجتك المعتمدة ${ok[0].sc}. سجّل نتيجتك القادمة لتشوف تطورك.</div>`:''}
+ <label class="note">تاريخ الاختبار</label><input id="od" type="date" value="${iso(TODAY)}"><input id="osc" type="number" min="0" max="100" placeholder="الدرجة من 100"><label class="note">صورة النتيجة (مطلوبة)</label><input type="file" id="of" accept="image/*"><button class="btn" onclick="addOff()">إرسال للمعلم</button>
+ ${s.off.map(x=>`<div class="row"><span>${x.sc} من 100<br><span class="note">${fmtD(x.d)}</span></span><span>${thumb(x.ph,'صورة نتيجة الاختبار الرسمي')} <span class="chip ${OSTAT[x.st][0]}">${OSTAT[x.st][1]}</span></span></div>`).join('')}</div>`}
+function offDec(i,k,ok){S[i].off[k].st=ok?'ok':'no';toast(ok?'تم اعتماد النتيجة':'تم رفض النتيجة');render()}
+function offMan(){const i=+V('ots'),sc=+V('otn'),d=V('otd');if(!d||V('otn')===''||!(sc>=0&&sc<=100))return toast('اكتب التاريخ والدرجة (0 إلى 100)');S[i].off.push({d,sc,ph:null,st:'ok'});toast('تم تسجيل النتيجة');render()}
+function offTeacher(){const pend=[];S.forEach((s,i)=>s.off.forEach((x,k)=>{if(x.st=='p')pend.push({s,i,k,x})}));
+ return `<div class="card"><h3>🎓 نتائج القدرات الرسمية</h3>${pend.length?pend.map(q=>`<div class="row"><span><b>${q.s.n}</b>: ${q.x.sc} من 100<br><span class="note">${fmtD(q.x.d)}</span></span><span>${thumb(q.x.ph,'صورة النتيجة')} <button class="tb" onclick="offDec(${q.i},${q.k},1)">✔ اعتماد</button> <button class="tb" onclick="offDec(${q.i},${q.k},0)">✖ رفض</button></span></div>`).join(''):'<p class="note">لا توجد نتائج بانتظار المراجعة.</p>'}
+ <div class="ov"><table><tr><th>الطالب</th><th>السابق</th><th>الأخير</th><th>التغير</th></tr>${S.map(s=>{const ok=okOff(s);return ok.length?`<tr><td>${s.n}</td><td>${ok.length>1?ok.at(-2).sc:'—'}</td><td>${ok.at(-1).sc}</td><td>${ok.length>1?sg(ok.at(-1).sc-ok.at(-2).sc):'—'}</td></tr>`:''}).join('')}</table></div>
+ <div class="hn">تسجيل نتيجة يدويًا (تُعتمد مباشرة)</div><select id="ots" aria-label="الطالب">${sopts()}</select><input id="otd" type="date" value="${iso(TODAY)}"><input id="otn" type="number" min="0" max="100" placeholder="الدرجة من 100"><button class="btn" onclick="offMan()">تسجيل</button></div>`}
+/* الشهادات */
+function certHtml(k,s,rw){const lv=lvOf(s.pts),o=ks(s,k=='t'?moEl():wkEl()),T={w:'شهادة فارس الأسبوع',t:'شهادة فارس الفصل',lv:'شهادة المستوى'},B={w:'🏇 فارس الأسبوع',t:'🏆 فارس الفصل',lv:`${lv.cur.e} ${lv.cur.n}`};
+ return `<div class="cert"><div class="cav">${k=='lv'?lv.cur.e:'🏇'}</div><div class="ct">${T[k]}</div><div class="cs">تُمنح بكل فخر إلى</div><div class="cn">${esc(s.n)}</div><div class="cb">${B[k]}</div>
+ <div class="g3"><div class="st"><b>${o.t}</b>تقييم من 100</div><div class="st"><b>${s.pts}</b>نقطة</div><div class="st"><b>${lv.cur.n}</b>المستوى</div></div>${rw?`<div class="cs">الجائزة: ${esc(rw)}</div>`:''}
+ <div class="cf">فصل ${esc(CLS.c)} · ${esc(CLS.t)}<br>${FD[(TODAY-1)%7]} ${TODAY} نوفمبر 2026</div></div><p class="note">خذ لقطة شاشة للشهادة وشاركها.</p>`}
+function openCert(k,i,j){const s=S[i];if(!s)return;showM('الشهادة',certHtml(k,s,j>=0&&HOF[j]?HOF[j].r:''))}
+/* تحدي اليوم */
+const AB=['أ','ب','ج','د'];
+function chCard(){if(!CH.q)return '';const a=CH.ans[me];
+ return `<div class="card"><h3>⚡ تحدي اليوم <span class="chip warn">${sg(CH.pts)} نقاط</span></h3><div class="hn">${esc(CH.q)}</div>${CH.o.map((x,i)=>a===undefined?`<button class="tb" style="display:block;width:100%;text-align:right;margin:4px 0;padding:8px" onclick="ansCh(${i})">${AB[i]}) ${esc(x)}</button>`:`<div class="row"><span>${AB[i]}) ${esc(x)}</span>${i==CH.ok?'<span class="chip ok">الصحيحة</span>':i==a?'<span class="chip bad">إجابتك</span>':''}</div>`).join('')}${a!==undefined?`<div class="rp ${a==CH.ok?'ok':'warn'}">${a==CH.ok?`أحسنت! حصلت على ${sg(CH.pts)} نقاط 🎉`:'إجابتك غير صحيحة، راجع الشرح 👇'}</div><div class="note">${esc(CH.exp)}</div>`:''}</div>`}
+function chTeacher(){const n=Object.keys(CH.ans).length,c=Object.values(CH.ans).filter(v=>v==CH.ok).length;
+ return `<div class="card"><h3>⚡ تحدي اليوم</h3><p class="note">أجاب ${n} من ${S.length} · الصحيحة ${c}</p><input id="cq" value="${esc(CH.q)}" placeholder="نص السؤال" aria-label="السؤال">${[0,1,2,3].map(i=>`<input id="co${i}" value="${esc(CH.o[i])}" placeholder="الخيار ${AB[i]}" aria-label="الخيار ${AB[i]}">`).join('')}<select id="cok" aria-label="الإجابة الصحيحة">${[0,1,2,3].map(i=>`<option value="${i}" ${i==CH.ok?'selected':''}>الإجابة الصحيحة: ${AB[i]}</option>`).join('')}</select><input id="ce" value="${esc(CH.exp)}" placeholder="شرح الحل" aria-label="شرح الحل"><label class="note">نقاط الإجابة الصحيحة</label><input id="cpt" type="number" min="1" value="${CH.pts}"><button class="btn" onclick="setCh()">نشر التحدي (يمسح الإجابات السابقة)</button></div>`}
+function setCh(){const q=V('cq'),o=[0,1,2,3].map(i=>V('co'+i));if(!q||o.some(x=>!x))return toast('اكتب السؤال والخيارات الأربعة');CH={q,o,ok:+V('cok'),exp:V('ce'),pts:Math.max(1,+V('cpt')||5),ans:{}};toast('تم نشر تحدي اليوم');render()}
+/* نسخة المعلمين */
+function startCard(){return `<div class="card"><h3>👋 أهلًا بك يا معلم</h3><p>هذه نسخة المعلمين وبياناتها تجريبية. لبدء فصلك افتح تبويب الإدارة وانزل لبطاقة الإعدادات، واكتب اسمك واسم فصلك وأسماء طلابك.</p><button class="btn" onclick="setTab('adm')">افتح الإدارة</button></div>`}
+function newClass(){const nm=V('nm').split('\n').map(x=>x.trim()).filter(Boolean).slice(0,60);if(!nm.length)return toast('اكتب أسماء الطلاب، اسم في كل سطر');
+ CLS.c=V('nc')||CLS.c;CLS.t=V('nt')||CLS.t;S.length=0;
+ nm.forEach(n=>{const heat={},at={};moEl().forEach(d=>{heat[d]=0;at[d]=['p','p','p','p']});S.push({n,pts:0,pen:{},exr:{},err:[],off:[],at,pr:[],streak:0,mocks:[],log:[],heat,pl:[]})});
+ moEl().forEach(d=>{RC[d]=[false,false,false,false];BON[d]=false});A=[];ASG=[];EX=[];HOF.length=0;PS.clear();CH={q:'',o:['','','',''],ok:0,exp:'',pts:5,ans:{}};rem='';DEMO=false;admDay=TODAY;admSes=0;kw='w';tab='home';
+ toast(`تم إنشاء فصلك بـ ${nm.length} طلاب`);render();scrollTo(0,0)}
+function setCard(){return `<div class="card"><h3>⚙️ إعدادات الفصل والخصم والمستويات</h3><label class="note">اسم الفصل</label><input id="nc" value="${esc(CLS.c)}"><label class="note">المعلم المسؤول</label><input id="nt" value="${esc(CLS.t)}">
+<label class="note">خصم التأخر (نقاط)</label><input id="pl" type="number" min="0" value="${PEN.l}"><label class="note">خصم الغياب (نقاط)</label><input id="pa" type="number" min="0" value="${PEN.a}"><select id="pon" aria-label="الخصم التلقائي"><option value="1" ${PEN.on?'selected':''}>الخصم التلقائي مفعّل عند اعتماد الحضور</option><option value="0" ${PEN.on?'':'selected'}>الخصم التلقائي متوقف (أخصم يدويًا)</option></select><label class="note">نقاط أعلى مستوى في نهاية العام</label><input id="lm" type="number" min="1000" value="${LVMAX}"><button class="btn" onclick="saveSet()">حفظ الإعدادات</button><p class="note">تغيير قيم الخصم يسري على الحصص التي تعتمدها بعد ذلك فقط. الغياب بعذر لا يُخصم منه.</p>
+${ONLINE_ON?'':`<div class="hn">🧑‍🏫 بدء فصل جديد (للمعلمين)</div><p class="note">اكتب أسماء الطلاب، اسم في كل سطر، ويبدأ فصلك نظيفًا بدون البيانات التجريبية. اسم الفصل والمعلم يؤخذان من الخانتين أعلاه.</p><textarea id="nm" rows="6" placeholder="فيصل&#10;عبدالله&#10;محمد" aria-label="أسماء الطلاب"></textarea><button class="btn" onclick="conf('newcls',newClass)">ابدأ فصلًا جديدًا</button><p class="note">يمسح كل بيانات النسخة الحالية.</p>`}</div>`}
+function adm(){
+ return (COPY&&DEMO?startCard():'')+todayCard()+riskCard()+`<div class="card"><h3>🗓️ تسجيل حضور حصة</h3><p class="note">الكل حاضر افتراضيًا. غيّر حالة الغائبين والمتأخرين فقط ثم اعتمد الحصة.</p>
+ <select id="ad" aria-label="اليوم" onchange="setAdm('d',this.value)">${moEl().slice().reverse().map(d=>`<option value="${d}" ${d==admDay?'selected':''}>${FD[(d-1)%7]} ${d} نوفمبر</option>`).join('')}</select>
+ <div class="seg" style="margin:6px 0;flex-wrap:wrap">${SES.map((x,j)=>`<button class="${j==admSes?'on':''}" onclick="setAdm('s',${j})">${RC[admDay][j]?'✓ ':''}${x}</button>`).join('')}</div>
+ <div id="asum" class="pv">${asum()}</div>
+ ${S.map((s,i)=>`<div class="row ${s.at[admDay][admSes]=='p'?'':'me'}" id="ar${i}">${arIn(i)}</div>`).join('')}
+ <button class="btn" onclick="apprAtt()">${RC[admDay][admSes]?'تحديث اعتماد الحصة':'اعتماد حضور الحصة'}</button> <button class="tb" onclick="allP()">إرجاع الكل حاضر</button></div>
+ <div class="card"><h3>🙋 تفاعل الحصة</h3><p class="note">حدد الطلاب المتفاعلين وأضف لهم النقاط دفعة واحدة. التفاعل يدخل في حساب فارس الأسبوع.</p>
+ <select id="ps" aria-label="الحصة">${SES.map((x,j)=>`<option value="${j}">${x}</option>`).join('')}</select><select id="pp" aria-label="النقاط"><option value="1">+1</option><option value="2" selected>+2</option><option value="3">+3</option><option value="5">+5</option><option value="10">+10</option></select>
+ <div>${S.map((s,i)=>`<button class="nm pc${PS.has(i)?' sel':''}" id="pc${i}" onclick="tp(${i})">${PS.has(i)?'✓ ':''}${s.n}</button>`).join('')}</div><div class="pv" id="pcnt">المحددون: ${PS.size}</div><button class="btn" onclick="givePart()">إضافة النقاط للمتفاعلين</button></div>
+ ${pointsCard()}${chTeacher()}${rateCard()}${knight()}${repCard()}${dailyCard()}${setCard()}${ONLINE_ON?acctCard():''}`}
+function act(){
+ const f=a=>`<span class="chip ${{p:'warn',ok:'ok',no:'bad'}[a.st]}">${{p:'بانتظار المراجعة',ok:'مقبول',no:'مرفوض'}[a.st]}</span>`;
+ if(role=='t')return `<div class="card"><h3>أنشطة بانتظار المراجعة</h3>${A.filter(a=>a.st=='p').map(a=>`<div class="row"><span><b>${S[a.s].n}</b>: ${esc(a.t)}</span><span>${thumb(a.ph,'صورة النشاط')} <button class="tb" onclick="dec(${A.indexOf(a)},1)">✔ قبول</button> <button class="tb" onclick="dec(${A.indexOf(a)},0)">✖ رفض</button></span></div>`).join('')||'لا توجد أنشطة معلقة. أحسنت!'}</div>
+ <div class="card"><h3>✍️ اعتماد نشاط يدويًا</h3><select id="ms" aria-label="الطالب">${sopts()}</select><select id="mg" aria-label="النشاط">${aopts()}</select><button class="btn" onclick="manAct()">اعتماد وإضافة النقاط</button></div>
+ <div class="card"><h3>📌 أنشطة الأسبوع المطلوبة</h3>${ASG.map(g=>`<div class="row"><span>${esc(g.t)} <span class="note">(${S.filter((x,i)=>A.some(a=>a.s==i&&a.a==g.id&&a.st=='ok')).length} من ${S.length} أنجزوه)</span></span><button class="tb" onclick="conf('g${g.id}',()=>delAsg(${g.id}))">حذف</button></div>`).join('')||'لا توجد أنشطة مطلوبة.'}<input id="ng" placeholder="نشاط جديد، مثل: تمارين الاستيعاب"><button class="btn" onclick="addAsg()">إضافة النشاط</button></div>`;
+ const mine=A.filter(a=>a.s==me),sub=g=>mine.find(a=>a.a==g.id);
+ return `<div class="hero">أنشطة الأسبوع<b>${doneN(me)} من ${ASG.length}</b>${done(me)?'أنجزت كل الأنشطة، ممتاز!':'أنجزها كلها لتظهر في لوحة الشرف'}<div class="pg"><i style="width:${ASG.length?doneN(me)/ASG.length*100:0}%"></i></div></div>
+ <div class="card"><h3>📌 المطلوب منك</h3>${ASG.map(g=>{const a=sub(g);return `<div class="row"><span>${esc(g.t)}</span>${a?f(a):'<span class="chip">لم يُرفع</span>'}</div>`}).join('')||'لا توجد أنشطة مطلوبة الآن.'}</div>
+ <div class="card"><h3>📸 ارفع نشاطك</h3><select id="ag" aria-label="النشاط">${aopts()}<option value="0">نشاط آخر (اكتب اسمه)</option></select><input id="at" placeholder="اسم النشاط الآخر (للخيار الأخير فقط)"><label class="note">صورة النشاط (مطلوبة)</label><input type="file" id="af" accept="image/*"><button class="btn" onclick="addAct()">إرسال للمعلم</button></div>
+ <div class="card"><h3>أنشطتي المرفوعة</h3>${mine.slice().reverse().map(a=>`<div class="row"><span>${esc(a.t)}</span><span>${thumb(a.ph,'صورة النشاط')} ${f(a)}</span></div>`).join('')||'لم ترفع أي نشاط بعد.'}</div>`}
+function mockForm(p){return `<select id="${p}t" aria-label="عدد الأسئلة" onchange="prev('${p}')">${optH()}</select><input id="${p}o" type="number" min="1" placeholder="إذا اخترت عددًا آخر اكتبه هنا" oninput="prev('${p}')"><input id="${p}c" type="number" min="0" placeholder="عدد الإجابات الصحيحة" oninput="prev('${p}')"><div class="pv" id="${p}p">النسبة: —</div><input id="${p}l" placeholder="الدروس التي اختُبرت فيها"><label class="note">صورة النتيجة ${p=='m'?'(مطلوبة)':'(اختياري)'}</label><input type="file" id="${p}f" accept="image/*">`}
+function qd(){
+ if(role=='t'){
+  const dl=moEl();
+  return `<div class="card"><h3>✍️ تسجيل يدوي لحالة مذاكرة يوم</h3><select id="hs" aria-label="الطالب">${sopts()}</select><select id="hd" aria-label="اليوم">${dopts()}</select><select id="hv" aria-label="الحالة"><option value="0">لم يذاكر</option><option value="1" selected>ذاكر فقط</option><option value="2">ذاكر واختبر</option></select><button class="btn" onclick="setHeat()">حفظ</button></div>
+  <div class="card"><h3>📝 تسجيل نتيجة محاكي لطالب</h3><select id="tms" aria-label="الطالب">${sopts()}</select><select id="tmd" aria-label="اليوم">${dopts()}</select>${mockForm('t')}<button class="btn" onclick="saveMock('t')">حفظ النتيجة</button><p class="note">تظهر للطالب فورًا في خريطته وتقريره وترتيبه.</p></div>
+  ${offTeacher()}${errTeacher()}
+  <div class="card"><h3>ترتيب الاستعداد للقدرات</h3><p class="note">التقييم من 100: متوسط نسبة آخر محاكيين (70%) + انتظام المذاكرة هذا الشهر (30%).</p><div class="ov"><table><tr><th>الطالب</th><th>التقييم</th><th>الأسبوع</th><th>آخر محاكي</th><th>أعلى نسبة</th><th>تنبيه</th></tr>${qranks().map((s,i)=>{const miss=wkEl().length-wkStudy(s);return `<tr><td>${i+1}. ${s.n}</td><td>${Math.round(qs(s))}</td><td>${wkStudy(s)}/${wkEl().length}</td><td>${dLast(s)}</td><td>${s.mocks.length?Math.max(...pc(s))+'%':'—'}</td><td>${miss>=2?'<span class="chip bad">فجوة</span>':'—'}</td></tr>`}).join('')}</table></div></div>
+  <div class="card"><h3>خريطة المذاكرة للفصل (نوفمبر)</h3><div class="ov"><table><tr><th>الطالب</th>${dl.map(d=>`<th>${d}</th>`).join('')}</tr>${S.map(s=>`<tr><td>${s.n}</td>${dl.map(d=>{const v=s.heat[d]||0;return `<td class="h${v}" title="${HG[v][1]}">${HG[v][0]}</td>`}).join('')}</tr>`).join('')}</table></div><div class="lg" style="margin-top:8px"><span class="chip h2">★ ذاكر واختبر</span><span class="chip h1">● ذاكر فقط</span><span class="chip h0">○ لم يذاكر</span></div></div>`}
+ const s=S[me],m=pc(s),n=m.length,pt=m.map((v,i)=>`${20+i*(n>1?260/(n-1):130)},${110-v}`).join(' '),rk=qranks().indexOf(s)+1;
+ return `<div class="hero">ترتيبك في الاستعداد للقدرات<b>${rk} من ${S.length}</b>مستواك الحالي: ${qlevel(m.at(-1))}<div class="pg"><i style="width:${Math.round(qs(s))}%"></i></div><div style="margin-top:6px;font-size:13px">تقييمك ${Math.round(qs(s))} من 100</div></div>
+ <div class="g3"><div class="st"><b>${moStudy(s)}/${moEl().length}</b>أيام المذاكرة هذا الشهر</div><div class="st"><b>${m.length?m.at(-1)+'%':'—'}</b>آخر محاكي</div><div class="st"><b>${m.length?Math.max(...m)+'%':'—'}</b>أعلى نسبة</div></div>
+ <div class="card"><h3>🗓️ خريطة مذاكرتك</h3><div class="seg" style="width:max-content"><button class="${hm=='w'?'on':''}" onclick="setHm('w')">الأسبوع الحالي</button><button class="${hm=='m'?'on':''}" onclick="setHm('m')">الشهر</button></div>${heat(s)}</div>
+ <div class="card"><h3>📋 تقرير أسبوعك</h3>${report(s).map(r=>`<div class="rp ${r[0]}">${r[1]}</div>`).join('')}</div>
+ <div class="card"><h3>📈 تطور نسبتك في المحاكي</h3>${n?`<svg viewBox="0 0 300 120" width="100%" role="img" aria-label="تطور نسبة المحاكي"><polyline points="${pt}" fill="none" stroke="var(--pri)" stroke-width="3"/>${pt.split(' ').map((p,i)=>`<circle cx="${p.split(',')[0]}" cy="${p.split(',')[1]}" r="4" fill="var(--pri)"/><text x="${p.split(',')[0]}" y="${p.split(',')[1]-8}" font-size="11" text-anchor="middle" fill="var(--ink)">${m[i]}%</text>`).join('')}</svg>`:'<p class="note">سجّل أول اختبار محاكي لتشوف تطورك.</p>'}</div>
+ ${offCard(s)}
+ <div class="card"><h3>📝 سجل اختبار محاكي</h3><p class="note">اختر عدد الأسئلة (كامل أو جزئي) وسجّل عدد إجاباتك الصحيحة وأرفق صورة النتيجة، والنسبة تُحسب تلقائيًا.</p>${mockForm('m')}<button class="btn" onclick="saveMock('m')">حفظ النتيجة</button>${mh(s)}</div>
+ ${errCard(s)}
+ <div class="card"><h3>📚 سجل مذاكرة اليوم</h3><input id="ql" placeholder="اسم الدرس"><select id="qs" aria-label="القسم"><option>لفظي</option><option>كمي</option></select><input id="qm" type="number" placeholder="المدة بالدقائق"><button class="btn" onclick="addStudy()">حفظ</button>${s.log.map(l=>`<div class="row"><span>${esc(l.l)} (${l.s})</span><span>${l.m} د</span></div>`).join('')}</div>
+ <div class="card"><h3>🏅 أفضل الطلاب استعدادًا</h3>${qlb(5)}</div>`}
+function ex(){return `<div class="card"><h3>جدول الاختبارات النهائية</h3><p class="note">اضغط على أي اختبار لتشوف التفاصيل.</p>${EX.map((e,i)=>`<div class="row"><button class="xb" onclick="openEx(${i})"><span><b>${esc(e.d)}</b> · ${esc(e.s)}</span><span class="note">${esc(e.r||'')} ‹</span></button>${role=='t'?`<button class="tb" onclick="editEx(${i})">تعديل</button>`:''}</div>`).join('')||'لا توجد اختبارات مجدولة.'}</div>`+(role=='t'?`<div class="card"><h3>إضافة اختبار</h3><input id="xd" placeholder="التاريخ، مثل: الأحد 15 نوفمبر"><input id="xs" placeholder="المادة"><input id="xr" placeholder="من أين إلى أين"><input id="xt" placeholder="نصيحة للمذاكرة (اختياري)"><button class="btn" onclick="addEx()">إضافة</button></div>`:'')}
+function gd(){return `<div class="card"><h3>دليلي</h3>
+<details><summary>كيف أرفع نشاطًا؟</summary>من تبويب الأنشطة اختر النشاط المطلوب، وأرفق صورة الحل، ثم اضغط إرسال للمعلم.</details>
+<details><summary>كيف تُحسب النقاط؟</summary>في الصفحة الرئيسية بطاقة "كيف تكسب النقاط؟" فيها كل القواعد، وسجل نقاطك يبين من أين جاءت كل نقطة.</details>
+<details><summary>كيف أسجل اختبار المحاكي؟</summary>من تبويب القدرات اختر عدد الأسئلة (كامل 120 أو جزئي)، واكتب عدد إجاباتك الصحيحة، وأرفق صورة النتيجة. النسبة تُحسب تلقائيًا.</details>
+<details><summary>كيف أقرأ خريطة المذاكرة؟</summary>كل مربع يوم دراسي: الأخضر ★ يعني ذاكرت واختبرت، والأصفر ● ذاكرت فقط، والرمادي ○ لم تذاكر. المربعات المنقطة إجازة.</details>
+<details><summary>كيف أذاكر للقدرات؟</summary>ذاكر درسًا لفظيًا وآخر كميًا كل يوم، وسجّل مدة المذاكرة، ثم جرّب اختبارًا محاكيًا كل أسبوع.</details>
+<details><summary>ماذا يُخصم ومتى؟</summary>عند اعتماد الحصة يُخصم تلقائيًا على التأخر والغياب، وتشوف المبالغ في بطاقة كيف تكسب النقاط، وكل خصم يظهر في سجل نقاطك مع اليوم والحصة.</details>
+<details><summary>كيف أوصل لأعلى مستوى؟</summary>المستويات من برونزي إلى أسطوري، وكل مستوى له درجات. النقاط تتراكم على مدار العام الدراسي، وتشوف رحلتك في الصفحة الرئيسية.</details>
+<details><summary>كيف يتحدد فارس الأسبوع؟</summary>من مجموع 100: الحضور 20، عدم التأخير 10، مذاكرة القدرات 25، الأنشطة 20، التفاعل في الحصص 15، والمحاكي 10. تابع ترتيبك في الصفحة الرئيسية.</details>
+<details><summary>ما هو تحدي اليوم؟</summary>سؤال قدرات جديد كل يوم في الصفحة الرئيسية. أجب مرة واحدة، والإجابة الصحيحة تعطيك نقاطًا فورًا.</details>
+<details><summary>ما هو دفتر الأخطاء؟</summary>اختياري، من تبويب القدرات. سجّل فيه الأسئلة التي أخطأت فيها ونوعها، ويبين لك أكثر مهاراتك ضعفًا لتراجعها.</details>
+<details><summary>كيف أسجل نتيجة اختبار القدرات الرسمي؟</summary>من تبويب القدرات اكتب الدرجة وتاريخ الاختبار وأرفق صورة النتيجة. بعد اعتماد المعلم تقارن تطورك بين اختبارك السابق والجديد.</details>
+<details><summary>ماذا لو تأخرت عن الحصة؟</summary>يسجّلك المعلم متأخرًا، وتحتسب مواظبتك لكن بلا وسام اليوم المثالي.</details></div>`}
+const TABS=[['home','🏠','الرئيسية',home],['att','🗓️','الحضور',att],['act','📸','الأنشطة',act],['q','🎯','القدرات',qd],['ex','📝','الاختبارات',ex],['g','💡','دليلي',gd]];
+const ADM=['adm','🛠️','الإدارة',adm];const tabs=()=>role=='t'?TABS.map(t=>t[0]=='att'?ADM:t):TABS;
+function render(){
+ $('#rs').className=role=='s'?'on':'';$('#rt').className=role=='t'?'on':'';
+ $('#bar').innerHTML=`<span>🔔 ${esc(rem)}</span><small>${role=='t'?'تعديل':'التفاصيل'} ‹</small>`;$('#bar').hidden=!rem;$('#cls').textContent=`فصل ${CLS.c} · المعلم المسؤول: ${CLS.t}`;
+ $('#app').innerHTML=tabs().find(t=>t[0]==tab)[3]();
+ $('#nav').innerHTML=tabs().map(t=>`<button class="${t[0]==tab?'on':''}" onclick="setTab('${t[0]}')"><span>${t[1]}</span>${t[2]}</button>`).join('')}
+/* النافذة المنبثقة */
+const exHtml=e=>`<h4>${esc(e.s)}</h4><div class="row"><span>التاريخ</span><b>${esc(e.d)}</b></div><div class="row"><span>المقرر</span><b>${esc(e.r||'—')}</b></div><div class="row"><span>نصيحة</span><span>${esc(e.tip||'راجع المقرر وحل أمثلة متنوعة.')}</span></div>`;
+function showM(t,h){$('#mt').textContent=t;$('#mb').innerHTML=h;$('#md').hidden=false;$('#mx').focus()}
+function closeM(){$('#md').hidden=true}
+function showImg(src){showM('الصورة',`<img src="${src}" alt="الصورة" style="max-width:100%;border-radius:12px">`)}
+function openEx(i){showM('تفاصيل الاختبار',exHtml(EX[i]))}
+function openRem(){
+ if(role=='t')return showM('تعديل التذكير',`<input id="rm2" value="${esc(rem)}" aria-label="نص التذكير"><button class="btn" onclick="setRem('rm2')">حفظ التذكير</button><p class="note">الاختبارات القادمة</p>${EX.slice(0,3).map((e,i)=>`<div class="card">${exHtml(e)}<button class="tb" onclick="editEx(${i})">✏️ تعديل</button></div>`).join('')}`);
+ showM('تذكير اليوم',`<div class="rp warn">${esc(rem)}</div><p class="note">الاختبارات القادمة</p>${EX.slice(0,3).map(e=>`<div class="card">${exHtml(e)}</div>`).join('')}`)}
+function editEx(i){const e=EX[i];showM('تعديل الاختبار',`<input id="ed" value="${esc(e.d)}" aria-label="التاريخ"><input id="es" value="${esc(e.s)}" aria-label="المادة"><input id="er" value="${esc(e.r||'')}" aria-label="المقرر"><input id="et" value="${esc(e.tip||'')}" aria-label="النصيحة"><button class="btn" onclick="saveEx(${i})">حفظ التعديل</button> <button class="tb" onclick="conf('dx${i}',()=>delEx(${i}))">حذف الاختبار</button>`)}
+function saveEx(i){const d=V('ed'),s=V('es');if(!d||!s)return toast('اكتب التاريخ والمادة');EX[i]={d,s,r:V('er'),tip:V('et')};closeM();toast('تم حفظ التعديل');render()}
+function delEx(i){EX.splice(i,1);closeM();toast('تم حذف الاختبار');render()}
+addEventListener('keydown',e=>{if(e.key=='Escape')closeM()});
+function accept(i){const a=A[i],s=S[a.s];a.st='ok';addP(s,10,'نشاط مقبول: '+a.t);
+ if(A.filter(x=>x.s==a.s&&x.st=='ok'&&x.d==a.d).length>=2)addP(s,5,'نشاط إضافي في نفس اليوم');
+ if(!s.dw&&wkEl().every(d=>A.some(x=>x.s==a.s&&x.st=='ok'&&x.d==d))){s.dw=true;addP(s,15,'نشاط مقبول في كل يوم دراسي من الأسبوع')}}
+function dec(i,ok){if(ok)accept(i);else A[i].st='no';toast(ok?'تم القبول وأُضيفت النقاط':'تم الرفض');render()}
+function manAct(){const s=+V('ms'),g=+V('mg'),t=ASG.find(x=>x.id==g);if(!t)return toast('اختر نشاطًا');if(A.some(x=>x.s==s&&x.a==g&&x.st=='ok'))return toast('هذا النشاط معتمد لهذا الطالب من قبل');A=A.filter(x=>!(x.s==s&&x.a==g));A.push({s,a:g,t:t.t,st:'p',d:TODAY});accept(A.length-1);toast('تم اعتماد النشاط وإضافة النقاط');render()}
+function addAsg(){const t=V('ng');if(!t)return toast('اكتب اسم النشاط');ASG.push({id:NEXT++,t});toast('أُضيف النشاط للطلاب');render()}
+function delAsg(id){ASG=ASG.filter(g=>g.id!=id);A=A.filter(x=>x.a!=id);toast('تم حذف النشاط');render()}
+function prev(p){const v=+V(p+'t'),t=v||+V(p+'o'),c=V(p+'c'),el=$('#'+p+'p');el.textContent=t>0&&c!==''&&+c>=0&&+c<=t?`النسبة: ${Math.round(c/t*100)}% (${+c} من ${t})`:'النسبة: —'}
+function setHeat(){const i=+V('hs'),d=+V('hd'),v=+V('hv'),s=S[i];if(v>=1&&!(s.heat[d]>=1))addP(s,5,'مذاكرة القدرات في اليوم');s.heat[d]=v;toast('تم تحديث خريطة '+s.n);render()}
+function award(){const i=+V('aw'),k=V('ar');let t,p;if(k=='c'){t=V('cr');p=+V('cp');if(!t||!p)return toast('اكتب السبب والنقاط للخيار المخصص')}else{const r=MAN.concat(DED())[+k];t=r[0];p=r[1]}
+ addP(S[i],p,t);toast(`${sg(p)} نقطة لـ ${S[i].n}: ${t}`);render()}
+function saveSet(){const l=+V('pl'),a=+V('pa'),m=+V('lm');if(!(l>=0)||!(a>=0)||!(m>=1000))return toast('تأكد من القيم: الخصم رقم موجب وأعلى مستوى لا يقل عن 1000');PEN.l=l;PEN.a=a;PEN.on=V('pon')=='1';LVMAX=m;CLS.c=V('nc')||CLS.c;CLS.t=V('nt')||CLS.t;toast('تم حفظ الإعدادات');render()}
+function setRem(id){rem=V(id||'rm')||rem;closeM();toast('تم تحديث التذكير');render()}
+function addEx(){const d=V('xd'),s=V('xs');if(!d||!s)return toast('اكتب التاريخ والمادة');EX.push({d,s,r:V('xr'),tip:V('xt')});toast('أُضيف الاختبار');render()}
+/* ================= الاتصال بقاعدة البيانات (Supabase) ================= */
+const SB_URL='https://ifaimhckzwvckhbdrrdn.supabase.co',SB_KEY='sb_publishable_QP2JTI8r20nERUFoLRxz5g_E43mO4xz';
+const BLANK='data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
+let sbc=null,usr=null,RID=0,VER=0,LASTJ='',BUSY=0,AUTHED=false,SAVING=0,QT=0,TIMER=0,CLAIMED=[];const PH={},PHF={};
+let LG={m:'s',id:0,names:[],msg:'',busy:0};
+const uid=()=>(window.crypto&&crypto.randomUUID?crypto.randomUUID():'x'+Date.now()+Math.random().toString(16).slice(2));
+const emailOf=id=>'student'+id+'@noonclass.app';
+const isRef=p=>/^(blob|data|http)/.test(p);
+const setSv=t=>{const e=document.getElementById('sv');if(e)e.textContent=t};
+const typing=()=>{const e=document.activeElement;return !!(e&&/INPUT|TEXTAREA|SELECT/.test(e.tagName))||!$('#md').hidden};
+
+/* ---- بيانات الفصل ---- */
+const blankS=n=>{const heat={},at={};moEl().forEach(d=>{heat[d]=0;at[d]=['p','p','p','p']});return{n,pts:0,pen:{},exr:{},err:[],off:[],at,pr:[],streak:0,mocks:[],log:[],heat,pl:[]}};
+function ensureDays(){moEl().forEach(d=>{if(!RC[d])RC[d]=[false,false,false,false];if(BON[d]===undefined)BON[d]=false;S.forEach(s=>{if(!s.at)s.at={};if(!s.heat)s.heat={};if(!s.at[d])s.at[d]=['p','p','p','p'];if(s.heat[d]===undefined)s.heat[d]=0})})}
+const pubOf=s=>({n:s.n,pts:s.pts,streak:s.streak||0,dw:!!s.dw,at:s.at,heat:s.heat,pr:s.pr,mocks:s.mocks.map(m=>({t:m.t,c:m.c,p:m.p,d:m.d,l:'',ph:null})),pen:{},exr:{},err:[],off:[],log:[],pl:[]});
+function snapshot(){return{S,A,ASG,NEXT,EX,rem,CH,RC,BON,HOF,RWD,PEN,LVMAX,CLS,SEQ,pubS:S.map(pubOf),pubA:A.filter(a=>a.st=='ok').map(a=>({s:a.s,a:a.a,t:a.t,st:a.st,d:a.d}))}}
+function loadSnap(v){S.length=0;(v.S||[]).forEach(x=>S.push(x));A=v.A||[];ASG=v.ASG||[];NEXT=v.NEXT||1;EX=v.EX||[];rem=v.rem||'';
+ CH=v.CH||{q:'',o:['','','',''],ok:0,exp:'',pts:5,ans:{}};if(!CH.ans)CH.ans={};
+ Object.keys(RC).forEach(k=>delete RC[k]);Object.assign(RC,v.RC||{});Object.keys(BON).forEach(k=>delete BON[k]);Object.assign(BON,v.BON||{});
+ HOF.length=0;(v.HOF||[]).forEach(x=>HOF.push(x));Object.assign(RWD,v.RWD||{});Object.assign(PEN,v.PEN||{});LVMAX=v.LVMAX||LVMAX;Object.assign(CLS,v.CLS||{});SEQ=v.SEQ||0;VER=v.ver||0}
+function loadStu(r){const v=r.v||{};loadSnap({...v,S:v.pubS||[],A:(v.pubA||[]).filter(a=>a.s!=r.rid-1).concat(r.meA||[])});me=r.rid-1;RID=r.rid;if(r.me)S[me]=r.me}
+async function initBlank(){const {data}=await sbc.from('roster').select('id,name').order('id');S.length=0;(data||[]).forEach(r=>S.push(blankS(r.name)));
+ A=[];ASG=[];EX=[];HOF.length=0;CH={q:'',o:['','','',''],ok:0,exp:'',pts:5,ans:{}};rem='';NEXT=1;SEQ=0;
+ Object.keys(RC).forEach(k=>delete RC[k]);Object.keys(BON).forEach(k=>delete BON[k]);ensureDays();VER=0;LASTJ=''}
+
+/* ---- الحفظ (المعلم) ---- */
+async function saveNow(){
+ if(role!='t'||!AUTHED||SAVING)return;const s=snapshot(),j=JSON.stringify(s);if(j===LASTJ)return;SAVING=1;
+ try{const v={...s,ver:VER+1};
+  if(VER==0){const {error}=await sbc.from('app_state').insert({k:'main',v});if(error){toast(String(error.code)=='23505'?'البيانات موجودة من جهاز آخر، حدّث الصفحة':'تعذر الحفظ');setSv('⚠ لم يُحفظ');return false}}
+  else{const {data,error}=await sbc.from('app_state').update({v,updated_at:new Date().toISOString()}).eq('k','main').eq('v->>ver',String(VER)).select('k');
+   if(error){toast('تعذر الحفظ');setSv('⚠ لم يُحفظ');return false}
+   if(!data||!data.length){toast('تغيّرت البيانات من جهاز آخر، حدّث الصفحة');setSv('⚠ لم يُحفظ');return false}}
+  VER++;LASTJ=j;setSv('✓ تم الحفظ');return true}
+ catch(e){toast('تعذر الحفظ');setSv('⚠ لم يُحفظ');return false}
+ finally{SAVING=0}}
+function queueSave(){clearTimeout(QT);QT=setTimeout(saveNow,900)}
+
+/* ---- منطق أفعال الطالب (يُستخدم عند الطالب والمعلم بنفس الطريقة) ---- */
+function seen(i,id){const s=S[i];return !!(A.some(x=>x.iid==id)||s.log.some(x=>x.iid==id)||s.mocks.some(x=>x.iid==id)||s.err.some(x=>x.iid==id)||s.off.some(x=>x.iid==id)||(CH.iids||[]).includes(id))}
+function coreAct(i,p){A.push({s:i,a:p.g,t:p.t,st:'p',d:p.d||TODAY,ph:p.ph||null,iid:p.iid})}
+function coreMock(i,p){const s=S[i],day=p.d||TODAY,m={...mk(p.t,p.c,p.l,day),ph:p.ph||null,iid:p.iid};s.mocks.push(m);s.mocks.sort((a,b)=>a.d-b.d);const k=s.mocks.indexOf(m);
+ if(!(s.heat[day]>=1))addP(s,5,'مذاكرة القدرات في اليوم');s.heat[day]=2;addP(s,10,'تسجيل اختبار محاكي');
+ if(k>0&&m.p>s.mocks[k-1].p)addP(s,10,'تحسن درجة المحاكي عن الاختبار السابق');return m}
+function coreStudy(i,p){const s=S[i],day=p.d||TODAY;s.log.unshift({l:p.l,s:p.sec,m:p.m,iid:p.iid});if(!(s.heat[day]>=1))addP(s,5,'مذاكرة القدرات في اليوم');s.heat[day]=Math.max(s.heat[day]||0,1)}
+function coreErr(i,p){S[i].err.unshift({g:p.g,sk:p.sk,n:p.n||'',ph:p.ph||null,d:p.d||TODAY,iid:p.iid})}
+function coreOff(i,p){S[i].off.push({d:p.od,sc:p.sc,ph:p.ph||null,st:'p',iid:p.iid})}
+function coreCh(i,p){if(CH.ans[i]!==undefined||p.cq!==CH.q)return;CH.ans[i]=p.a;(CH.iids=CH.iids||[]).push(p.iid);if(p.a==CH.ok)addP(S[i],CH.pts,'إجابة صحيحة في تحدي اليوم')}
+function applyRow(r){const i=r.roster_id-1,p={...(r.payload||{}),iid:r.id,ph:(r.payload&&r.payload.ph)||r.photo||null};if(!S[i]||seen(i,r.id))return false;
+ const K={act:coreAct,mock:coreMock,study:coreStudy,err:coreErr,off:coreOff,ch:coreCh}[r.kind];if(!K)return false;K(i,p);return true}
+
+/* ---- الصور ---- */
+const fileOf=id=>{const f=document.getElementById(id).files;return f&&f[0]?f[0]:null};
+async function shrink(f){const bm=await createImageBitmap(f),k=Math.min(1,1280/Math.max(bm.width,bm.height)),c=document.createElement('canvas');c.width=Math.round(bm.width*k);c.height=Math.round(bm.height*k);c.getContext('2d').drawImage(bm,0,0,c.width,c.height);
+ return await new Promise((ok,no)=>c.toBlob(b=>b?ok(b):no(),'image/jpeg',.78))}
+async function upPhoto(id){const f=fileOf(id);if(!f)return null;let b=f;try{b=await shrink(f)}catch(e){}
+ const path=usr.id+'/'+uid()+'.jpg';const {error}=await sbc.storage.from('photos').upload(path,b,{contentType:'image/jpeg'});
+ if(error){toast('تعذر رفع الصورة، حاول مرة ثانية');return false}try{PH[path]=URL.createObjectURL(b)}catch(e){}return path}
+async function hydrate(){if(!sbc)return;const need=[...new Set([...document.querySelectorAll('img[data-p]')].map(e=>e.dataset.p).filter(p=>!PH[p]&&!PHF[p]&&!isRef(p)))];
+ if(need.length){try{const {data}=await sbc.storage.from('photos').createSignedUrls(need,3600);(data||[]).forEach(x=>{if(x.signedUrl)PH[x.path]=x.signedUrl});need.forEach(p=>{if(!PH[p])PHF[p]=1})}catch(e){need.forEach(p=>PHF[p]=1)}}
+ document.querySelectorAll('img[data-p]').forEach(e=>{const u=PH[e.dataset.p];if(u&&e.getAttribute('src')!==u)e.setAttribute('src',u)})}
+async function sendIn(kind,payload,photo){const {data,error}=await sbc.from('inbox').insert({roster_id:RID,kind,payload,photo:photo||null}).select('id');
+ if(error||!data||!data[0]){toast('تعذر الإرسال، تأكد من الإنترنت وحاول مرة ثانية');return null}return data[0].id}
+
+/* ---- أفعال الطالب ---- */
+async function addAct(){if(BUSY)return;const g=+V('ag'),t=g?ASG.find(x=>x.id==g).t:V('at');if(!t)return toast('اكتب اسم النشاط');if(!fileOf('af'))return toast('أرفق صورة النشاط أولًا');
+ if(g&&A.some(x=>x.s==me&&x.a==g&&x.st=='ok'))return toast('هذا النشاط مقبول من قبل');if(g&&A.some(x=>x.s==me&&x.a==g&&x.st=='p'))return toast('أرسلته من قبل وهو بانتظار المراجعة');
+ BUSY=1;toast('جاري الرفع…');try{const ph=await upPhoto('af');if(!ph)return;const p={g,t,d:TODAY,ph},iid=await sendIn('act',p,ph);if(!iid)return;coreAct(me,{...p,iid});toast('وصل النشاط للمعلم');render()}finally{BUSY=0}}
+async function saveMock(p){if(BUSY)return;const i=p=='m'?me:+V('tms'),day=p=='m'?TODAY:+V('tmd'),v=+V(p+'t'),t=v||+V(p+'o'),c=V(p+'c');
+ if(!(t>0))return toast('اكتب عدد الأسئلة');if(c===''||+c<0||+c>t)return toast('عدد الإجابات الصحيحة يجب أن يكون بين 0 و '+t);if(p=='m'&&!fileOf(p+'f'))return toast('أرفق صورة نتيجة الاختبار');
+ BUSY=1;toast('جاري الحفظ…');try{let ph=null;if(fileOf(p+'f')){ph=await upPhoto(p+'f');if(ph===false)return}
+  const d={d:day,t,c:+c,l:V(p+'l'),ph};let m;
+  if(p=='m'){const iid=await sendIn('mock',d,ph);if(!iid)return;m=coreMock(me,{...d,iid})}else m=coreMock(i,d);
+  toast(`سُجل: ${m.c} من ${m.t} = ${m.p}%`);render()}finally{BUSY=0}}
+async function addStudy(){if(BUSY)return;const l=V('ql'),m=+V('qm');if(!l||!m)return toast('اكتب الدرس والمدة');
+ BUSY=1;try{const p={l,sec:$('#qs').value,m,d:TODAY},iid=await sendIn('study',p);if(!iid)return;coreStudy(me,{...p,iid});toast('سُجلت مذاكرة اليوم');render()}finally{BUSY=0}}
+async function addErr(){if(BUSY)return;const [g,sk]=V('eg').split('|');BUSY=1;try{let ph=null;if(fileOf('ef')){ph=await upPhoto('ef');if(ph===false)return}
+ const p={g,sk,n:V('en'),d:TODAY,ph},iid=await sendIn('err',p,ph);if(!iid)return;coreErr(me,{...p,iid});toast('تم الحفظ في دفتر الأخطاء');render()}finally{BUSY=0}}
+async function addOff(){if(BUSY)return;const sc=+V('osc'),d=V('od');if(V('osc')===''||!(sc>=0&&sc<=100))return toast('أدخل درجة من 0 إلى 100');if(!d)return toast('اختر تاريخ الاختبار');if(!fileOf('of'))return toast('أرفق صورة النتيجة');
+ BUSY=1;toast('جاري الرفع…');try{const ph=await upPhoto('of');if(!ph)return;const p={sc,od:d,ph},iid=await sendIn('off',p,ph);if(!iid)return;coreOff(me,{...p,iid});toast('وصلت نتيجتك للمعلم');render()}finally{BUSY=0}}
+async function ansCh(i){if(BUSY||CH.ans[me]!==undefined)return;BUSY=1;try{const p={a:i,cq:CH.q},iid=await sendIn('ch',p);if(!iid)return;coreCh(me,{...p,iid});toast(i==CH.ok?'إجابة صحيحة!':'حاول غدًا');render()}finally{BUSY=0}}
+
+/* ---- المعلم: استلام ما أرسله الطلاب ---- */
+async function ingest(){if(role!='t'||!AUTHED)return 0;const {data,error}=await sbc.from('inbox').select('*').eq('done',false).order('created_at');if(error||!data||!data.length)return 0;
+ let n=0;const ids=[];data.forEach(r=>{if(applyRow(r))n++;ids.push(r.id)});
+ if(n){ensureDays();const ok=await saveNow();if(ok===false)return 0}
+ await sbc.from('inbox').update({done:true}).in('id',ids);return n}
+async function loadClaimed(){const {data}=await sbc.rpc('public_roster');CLAIMED=data||[]}
+async function loadStudent(){const {data,error}=await sbc.rpc('get_main');if(error)throw error;if(!data.v)return;loadStu(data);
+ const {data:rows}=await sbc.from('inbox').select('*').eq('done',false).order('created_at');(rows||[]).forEach(applyRow);ensureDays()}
+async function refresh(){if(!AUTHED)return;try{
+ if(role=='t'){if(JSON.stringify(snapshot())===LASTJ){const {data}=await sbc.rpc('get_main');if(data&&data.v)loadSnap(data.v)}const n=await ingest();await loadClaimed();toast(n?`وصلك ${n} من الطلاب`:'تم التحديث')}
+ else{await loadStudent();toast('تم التحديث')}render()}catch(e){toast('تعذر التحديث، تأكد من الإنترنت')}}
+async function logout(){try{await sbc.auth.signOut()}catch(e){}location.reload()}
+function startTimer(){clearInterval(TIMER);TIMER=setInterval(async()=>{if(!AUTHED||document.hidden||typing()||BUSY)return;try{if(role=='t'){const n=await ingest();if(n){toast(`وصلك ${n} من الطلاب`);render()}}else{await loadStudent();render()}}catch(e){}},60000)}
+
+/* ---- حسابات الطلاب (للمعلم) ---- */
+function acctCard(){return `<div class="card"><h3>🔑 حسابات الطلاب</h3><p class="note">رمز الفصل يطلبه الطالب عند أول تسجيل. إذا نسي الطالب كلمة المرور اضغط تصفير حسابه، وبعدها يسجّل من جديد.</p>
+ <input id="ncode" placeholder="رمز فصل جديد (اختياري)" dir="ltr"><button class="btn" onclick="setCode()">تغيير رمز الفصل</button>
+ ${CLAIMED.map(x=>`<div class="row"><span>${x.claimed?'✅':'○'} ${esc(x.name)}</span>${x.claimed?`<button class="tb" onclick="conf('rel${x.id}',()=>relStu(${x.id}))">تصفير</button>`:'<span class="note">لم يسجّل بعد</span>'}</div>`).join('')}</div>`}
+async function setCode(){const c=V('ncode');if(c.length<3)return toast('الرمز 3 خانات على الأقل');const {error}=await sbc.rpc('set_class_code',{p_code:c});toast(error?'تعذر تغيير الرمز':'تم تغيير رمز الفصل')}
+async function relStu(id){const {error}=await sbc.rpc('release_student',{p_id:id});if(error)return toast('تعذر التصفير');await loadClaimed();toast('تم تصفير الحساب');render()}
+
+/* ---- شاشة الدخول ---- */
+async function showLogin(msg){AUTHED=false;if(msg!==undefined)LG.msg=msg;$('#nav').style.display='none';$('#hb').style.display='none';
+ try{const {data}=await sbc.rpc('public_roster');LG.names=data||[]}catch(e){LG.names=[]}renderLogin()}
+function lgErr(m){LG.msg=m;LG.busy=0;renderLogin()}
+function lgMode(m){LG.m=m;LG.msg='';renderLogin()}
+function lgPick(v){LG.id=+v;LG.msg='';renderLogin()}
+function renderLogin(){$('#nav').style.display='none';$('#bar').hidden=true;$('#cls').textContent='';const stu=LG.m=='s',sel=LG.names.find(x=>x.id==LG.id);
+ const sf=`<select id="lgn" aria-label="اسمك" onchange="lgPick(this.value)"><option value="0">اختر اسمك</option>${LG.names.map(x=>`<option value="${x.id}" ${x.id==LG.id?'selected':''}>${esc(x.name)}${x.claimed?' ✓':''}</option>`).join('')}</select>`+
+  (sel?(sel.claimed?`<input id="lpw" type="password" dir="ltr" placeholder="كلمة المرور" aria-label="كلمة المرور"><button class="btn" onclick="lgStu()">دخول</button><p class="note">نسيت كلمة المرور؟ كلّم معلمك ليصفّر حسابك.</p>`
+  :`<p class="note">أول مرة؟ اختر كلمة مرور تتذكرها (6 خانات على الأقل) واكتب رمز الفصل.</p><input id="lpw" type="password" dir="ltr" placeholder="كلمة مرور جديدة" aria-label="كلمة المرور"><input id="lpw2" type="password" dir="ltr" placeholder="أعد كتابة كلمة المرور" aria-label="تأكيد كلمة المرور"><input id="lcd" inputmode="numeric" dir="ltr" placeholder="رمز الفصل" aria-label="رمز الفصل"><button class="btn" onclick="lgStu()">إنشاء حسابي</button>`):'');
+ const tf=`<input id="lem" type="email" dir="ltr" placeholder="الإيميل" aria-label="الإيميل"><input id="lpw" type="password" dir="ltr" placeholder="كلمة المرور" aria-label="كلمة المرور"><button class="btn" onclick="lgTch(false)">دخول</button> <button class="tb" onclick="lgTch(true)">أول مرة؟ إنشاء حساب المعلم</button>`;
+ $('#app').innerHTML=`<div class="card"><h3>👋 أهلًا بك في فصل ${esc(CLS.c)}</h3><div class="seg" style="margin:6px 0"><button class="${stu?'on':''}" onclick="lgMode('s')">طالب</button><button class="${stu?'':'on'}" onclick="lgMode('t')">معلم</button></div>${LG.msg?`<div class="rp bad">${esc(LG.msg)}</div>`:''}${stu?sf:tf}</div>`}
+async function startSession(){const {data}=await sbc.auth.getSession();usr=data.session.user;await afterLogin()}
+async function lgStu(){if(LG.busy)return;const sel=LG.names.find(x=>x.id==LG.id);if(!sel)return lgErr('اختر اسمك أولًا');const pw=V('lpw');if(pw.length<6)return lgErr('كلمة المرور 6 خانات على الأقل');LG.busy=1;
+ try{if(sel.claimed){const {error}=await sbc.auth.signInWithPassword({email:emailOf(sel.id),password:pw});if(error)return lgErr('كلمة المرور غير صحيحة')}
+  else{if(pw!==V('lpw2'))return lgErr('كلمتا المرور غير متطابقتين');const code=V('lcd');if(!code)return lgErr('اكتب رمز الفصل');
+   const r=await sbc.auth.signUp({email:emailOf(sel.id),password:pw});
+   if(r.error){if(/registered|exists/i.test(r.error.message||'')){const s2=await sbc.auth.signInWithPassword({email:emailOf(sel.id),password:pw});if(s2.error)return lgErr('هذا الاسم له حساب سابق بكلمة مرور مختلفة، كلّم معلمك')}else return lgErr('تعذر إنشاء الحساب: '+(r.error.message||''))}
+   else if(!r.data||!r.data.session)return lgErr('تأكيد الإيميل ما زال مفعّلًا في Supabase، نبّه المعلم');
+   const c=await sbc.rpc('claim_student',{p_id:sel.id,p_code:code});
+   if(c.error){const m=c.error.message||'';await sbc.auth.signOut();return lgErr(/bad_code/.test(m)?'رمز الفصل غير صحيح':/name_taken/.test(m)?'هذا الاسم محجوز، كلّم معلمك':/already_claimed/.test(m)?'حسابك مرتبط باسم آخر':'تعذر ربط الحساب: '+m)}}
+  await startSession()}catch(e){lgErr('تعذر الاتصال، حاول مرة ثانية')}finally{LG.busy=0}}
+async function lgTch(create){if(LG.busy)return;const em=V('lem').toLowerCase(),pw=V('lpw');if(!em||pw.length<6)return lgErr('اكتب الإيميل وكلمة مرور 6 خانات على الأقل');LG.busy=1;
+ try{if(create){let r=await sbc.auth.signUp({email:em,password:pw});
+   if(r.error){if(/registered|exists/i.test(r.error.message||'')){r=await sbc.auth.signInWithPassword({email:em,password:pw});if(r.error)return lgErr('الحساب موجود وكلمة المرور مختلفة')}else return lgErr('تعذر إنشاء الحساب: '+(r.error.message||''))}
+   else if(!r.data||!r.data.session)return lgErr('تأكيد الإيميل ما زال مفعّلًا في Supabase');
+   const c=await sbc.rpc('claim_teacher');if(c.error&&!/teacher_exists/.test(c.error.message||'')){await sbc.auth.signOut();return lgErr(/wrong_email/.test(c.error.message||'')?'هذا الإيميل غير مصرّح له بحساب المعلم':'تعذر إنشاء حساب المعلم')}}
+  else{const {error}=await sbc.auth.signInWithPassword({email:em,password:pw});if(error)return lgErr('الإيميل أو كلمة المرور غير صحيحة')}
+  await startSession()}catch(e){lgErr('تعذر الاتصال، حاول مرة ثانية')}finally{LG.busy=0}}
+
+/* ---- بعد الدخول ---- */
+async function afterLogin(){
+ const {data,error}=await sbc.rpc('get_main');
+ if(error){const m=String(error.message||'');await sbc.auth.signOut();return showLogin(/not_claimed/.test(m)?(LG.m=='t'?'هذا الحساب ليس حساب المعلم.':'حسابك غير مربوط باسم طالب. سجّل من جديد برمز الفصل.'):'تعذر الدخول: '+m)}
+ role=data.role;
+ if(role=='t'){if(data.v){loadSnap(data.v)}else{await initBlank()}ensureDays();await loadClaimed();AUTHED=true;LASTJ=data.v?JSON.stringify(snapshot()):'';await ingest();await saveNow()}
+ else{if(!data.v){AUTHED=false;$('#app').innerHTML='<div class="card"><h3>⏳ الفصل لم يُجهّز بعد</h3><p>معلمك ما فتح الموقع لأول مرة. جرّب بعد قليل.</p><button class="btn" onclick="logout()">خروج</button></div>';return}
+  loadStu(data);const {data:rows}=await sbc.from('inbox').select('*').eq('done',false).order('created_at');(rows||[]).forEach(applyRow);ensureDays();AUTHED=true}
+ tab='home';$('#nav').style.display='';$('#hb').style.display='';startTimer();render();scrollTo(0,0)}
+async function boot(){
+ const dn=document.getElementById('demonote');if(dn)dn.hidden=true;
+ if(!window.supabase){$('#app').innerHTML='<div class="card"><h3>تعذر تحميل الموقع</h3><p>تأكد من الإنترنت وأعد فتح الصفحة.</p></div>';return}
+ sbc=window.supabase.createClient(SB_URL,SB_KEY);
+ let ss=null;try{ss=(await sbc.auth.getSession()).data.session}catch(e){}
+ if(ss){usr=ss.user;try{await afterLogin()}catch(e){showLogin('تعذر الدخول، حاول مرة ثانية')}}else showLogin()}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&AUTHED&&!typing()&&!BUSY){if(role=='t')ingest().then(n=>{if(n){toast(`وصلك ${n} من الطلاب`);render()}});else loadStudent().then(render).catch(()=>{})}});
+const _render=render;render=function(){if(AUTHED)ensureDays();_render();if(AUTHED){hydrate();if(role=='t')queueSave()}};
+boot();
+
+</script>
+</body>
+</html>
